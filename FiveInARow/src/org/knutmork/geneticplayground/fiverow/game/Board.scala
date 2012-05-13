@@ -5,8 +5,6 @@ class Board {
 	val NUM_ROWS = 30
 	val NUM_COLS = 30
 	val data = new ArrayBuffer[Marker]
-	var lastMarker : (Int, Int, CellState.Value) = (0,0, CellState.NOT_SET)
-	var winList = new ArrayBuffer[Marker]
 	
 	for (i <- 0 to NUM_ROWS-1){
 	  for (j <- 0 to NUM_COLS-1) {
@@ -14,6 +12,10 @@ class Board {
 	  }
 	}
 	
+	m(9,9).setState(CellState.X)
+	var lastMarker : (Int, Int, CellState.Value) = (9,9, CellState.X)
+	var winList = new ArrayBuffer[Marker]
+
 	def legalMove(x: Int, y : Int) : Boolean = {
 	  if(m(x,y).empty()) {
 	    return !m(x-1,y-1).empty || !m(x-1,y).empty || !m(x-1,y+1).empty || !m(x,y-1).empty || !m(x,y+1).empty || !m(x+1,y-1).empty || !m(x+1,y).empty || !m(x+1,y+1).empty	    
@@ -21,10 +23,16 @@ class Board {
 	  false
 	}
 	
-	def setMarker(x : Int, y : Int, marker : CellState.Value){
-	  m(x,y).setState(marker)
-	  lastMarker = (x, y, marker)
+	def setMarker(x : Int, y : Int) : Boolean ={
+	  if(!gameOver && legalMove(x, y)) {
+		  m(x,y).setState(currPlayer)
+		  lastMarker = (x, y, currPlayer)
+		  true
+	  } else false
 	}
+	
+	def currPlayer() : CellState.Value = if (CellState.X.equals(lastMarker._3)) CellState.Y else CellState.X
+	def nextPlayer() : CellState.Value = lastMarker._3
 	
 	def m(x : Int, y : Int) : Marker = {
 	  data((x+5)*NUM_ROWS+(y+5))
