@@ -16,13 +16,14 @@ object Main extends SimpleGUIApplication {
   var rowData = ofDim[Any](20, 20)
   val board = new Board()
   var playerX = false
-  val tcr = new TCR
+  val tcr = new WinningCellRenderer()
   val dtcr = new DefaultTableCellRenderer
 
   lazy val ui = new BoxPanel(Orientation.Vertical) {
     val table = new Table(rowData, headers) {
       selection.elementMode = Table.ElementMode.Cell
 
+      // For marking the winning sequence
       override protected def rendererComponent(isSelected: Boolean, hasFocus: Boolean, row: Int, column: Int) = {
         if (model.getValueAt(row, column) != null && " Z".equals(String.valueOf(model.getValueAt(row, column))))
         	Component.wrap(tcr.getTableCellRendererComponent(peer, model.getValueAt(row, column), isSelected, hasFocus, row, column).asInstanceOf[JComponent])
@@ -74,24 +75,5 @@ object Main extends SimpleGUIApplication {
     title = "Five in a Row"
     preferredSize = new Dimension(400, 400)
     contents = ui
-  }
-
-  // For marking the winning sequence
-  class TCR extends BorderPanel with TableCellRenderer {
-    val label = new Label
-    add(label, BorderPanel.Position.Center)
-
-    def getTableCellRendererComponent(table: JTable, value: Any, isSelected: Boolean, hasFocus: Boolean, row: Int, column: Int) = {
-      if (value != null && " Z".equals(String.valueOf(value))) {
-        label.foreground = java.awt.Color.RED
-        label.text = if (playerX) " X" else " O"
-      } 
-      else {
-        label.text = if (value == null) "" else String.valueOf(value)
-        label.foreground = table.getForeground
-      }
-      label.background = java.awt.Color.WHITE
-      peer
-    }
   }
 }
