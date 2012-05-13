@@ -8,7 +8,7 @@ object FiveInARow {
     
   	println("Initiating new game...")
   	val board = new Board()
-  	new Main().startup(board)
+  	new Main(board).startup()
   	println("Game ready")
   	
   }

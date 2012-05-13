@@ -10,9 +10,9 @@ import javax.swing.table.DefaultTableCellRenderer
 import javax.swing.JComponent
 import javax.swing.JTable
 
-class Main {
+class Main (board: Board) {
 
-  def startup(board: Board) {
+  def startup() {
     val t = new MainFrame {
       title = "Five in a Row"
       preferredSize = new Dimension(400, 400)
@@ -23,7 +23,6 @@ class Main {
 
   val headers = Array.tabulate(20) { "" + _ }.toSeq
   var rowData = ofDim[Any](20, 20)
-  val board = new Board()
   val tcr = new WinningCellRenderer(board)
   val dtcr = new DefaultTableCellRenderer
 
