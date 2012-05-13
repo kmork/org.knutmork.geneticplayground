@@ -4,6 +4,7 @@ import scala.collection.mutable._
 class Board {
 	val NUM_ROWS = 30
 	val NUM_COLS = 30
+	val CELL_PREFIX = 10
 	val data = new ArrayBuffer[Marker]
 	
 	for (i <- 0 to NUM_ROWS-1){
@@ -23,6 +24,8 @@ class Board {
 	  false
 	}
 	
+	def cellDimension : (Int,Int) = (NUM_ROWS-CELL_PREFIX, NUM_COLS-CELL_PREFIX)
+	
 	def setMarker(x : Int, y : Int) : Boolean ={
 	  if(!gameOver && legalMove(x, y)) {
 		  m(x,y).setState(currPlayer)
@@ -35,7 +38,7 @@ class Board {
 	def nextPlayer() : CellState.Value = lastMarker._3
 	
 	def m(x : Int, y : Int) : Marker = {
-	  data((x+5)*NUM_ROWS+(y+5))
+	  data((x+CELL_PREFIX/2)*NUM_ROWS+(y+CELL_PREFIX/2))
 	}
 	
 	def gameOver() : Boolean = {
