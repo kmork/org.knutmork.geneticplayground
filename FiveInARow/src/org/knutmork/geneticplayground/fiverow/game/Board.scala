@@ -14,6 +14,7 @@ class Board {
 	}
 	
 	m(9,9).setState(CellState.X)
+	println("Set initial marker X at 9, 9")
 	var lastMarker : (Int, Int, CellState.Value) = (9,9, CellState.X)
 	var winList = new ArrayBuffer[Marker]
 
@@ -28,10 +29,14 @@ class Board {
 	
 	def setMarker(x : Int, y : Int) : Boolean ={
 	  if(!gameOver && legalMove(x, y)) {
+		  println("Set marker" + currPlayer.toString() + " at " + x + ", " + y)
 		  m(x,y).setState(currPlayer)
 		  lastMarker = (x, y, currPlayer)
 		  true
-	  } else false
+	  } else {
+		  //println("Illegal marker" + currPlayer.toString() + " attempt at " + x + ", " + y)
+		  false
+	  }
 	}
 	
 	def currPlayer() : CellState.Value = if (CellState.X.equals(lastMarker._3)) CellState.Y else CellState.X

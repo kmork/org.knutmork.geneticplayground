@@ -13,5 +13,5 @@ class Marker (x : Int, y: Int){
 	  CellState.NOT_SET.equals(state)
 	}
 	
-	def pos : (Int, Int) = (x-5,y-5)
+	def pos : (Int, Int) = (x-5,y-5) // Should have used CELL_PREFIX from Board class
 }

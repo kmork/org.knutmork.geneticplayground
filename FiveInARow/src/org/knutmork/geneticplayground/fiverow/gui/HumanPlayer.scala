@@ -1,16 +1,24 @@
 package org.knutmork.geneticplayground.fiverow.gui
 
-import scala.Array._
-import scala.swing.event._
-import scala.swing._
+import scala.Array.ofDim
+import scala.swing.event.TableColumnsSelected
+import scala.swing.event.TableRowsSelected
+import scala.swing.Dimension
+import scala.swing.BoxPanel
+import scala.swing.Component
+import scala.swing.Label
+import scala.swing.MainFrame
+import scala.swing.Orientation
+import scala.swing.ScrollPane
+import scala.swing.Table
 
-import org.knutmork.geneticplayground.fiverow.game._
+import org.knutmork.geneticplayground.fiverow.game.Board
+import org.knutmork.geneticplayground.fiverow.game.Player
 
 import javax.swing.table.DefaultTableCellRenderer
 import javax.swing.JComponent
-import javax.swing.JTable
 
-class Main (board: Board) {
+class HumanPlayer(board: Board) extends Player {
 
   def startup() {
     val t = new MainFrame {
@@ -73,5 +81,9 @@ class Main (board: Board) {
     contents += new ScrollPane(table)
     contents += label
     rowData(9)(9) = board.nextPlayer().toString()
+  }
+
+  def yourTurn() {
+
   }
 }
