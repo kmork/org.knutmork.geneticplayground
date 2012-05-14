@@ -13,8 +13,6 @@ object FiveInARow {
   	val computer = new DummyPlayer(board)
   	println("Game ready")
 
-  	human.startup()
-  	computer.playMove()
-  	
+  	human.startup() 	
   }
 }

@@ -20,14 +20,12 @@ import javax.swing.JComponent
 
 class HumanPlayer(board: Board) extends Player {
 
-  val headers = Array.tabulate(20) { "" + _ }.toSeq
-  var rowData = ofDim[Any](20, 20)
-  val tcr = new WinningCellRenderer(board)
-  val dtcr = new DefaultTableCellRenderer
   board.addPlayer(this)
-
-  val table = new Table(rowData, headers) {
+  
+  val table = new Table(ofDim[Any](20, 20), Array.tabulate(20) { "" + _ }.toSeq) {
     selection.elementMode = Table.ElementMode.Cell
+    val tcr = new WinningCellRenderer(board)
+    val dtcr = new DefaultTableCellRenderer
 
     // For marking the winning sequence
     override protected def rendererComponent(isSelected: Boolean, hasFocus: Boolean, row: Int, column: Int) = {
@@ -63,7 +61,8 @@ class HumanPlayer(board: Board) extends Player {
     def outputSelection(x: Int, y: Int) {
       if (x > -1 && y > -1) {
         if (board.setMarker(x, y)) {
-          table.update(x, y, board.nextPlayer().toString())
+          //table.update(x, y, board.nextPlayer().toString())
+          table.update(x, y, " X")
           if (board.gameOver()) {
             label.text = "GAME OVER - Player" + board.nextPlayer.toString() + " won"
             board.winList.foreach { m =>
@@ -85,6 +84,5 @@ class HumanPlayer(board: Board) extends Player {
 
     contents += new ScrollPane(table)
     contents += label
-    rowData(9)(9) = board.nextPlayer().toString()
   }
 }
