@@ -9,10 +9,11 @@ object FiveInARow {
     
   	println("Initiating new game...")
   	val board = new Board()
-  	val human = new HumanPlayer(board).startup()
+  	val human = new HumanPlayer(board)
   	val computer = new DummyPlayer(board)
   	println("Game ready")
 
+  	human.startup()
   	computer.playMove()
   	
   }

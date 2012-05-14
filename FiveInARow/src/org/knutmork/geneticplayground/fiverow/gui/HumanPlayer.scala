@@ -20,6 +20,24 @@ import javax.swing.JComponent
 
 class HumanPlayer(board: Board) extends Player {
 
+  val headers = Array.tabulate(20) { "" + _ }.toSeq
+  var rowData = ofDim[Any](20, 20)
+  val tcr = new WinningCellRenderer(board)
+  val dtcr = new DefaultTableCellRenderer
+  board.addPlayer(this)
+
+  val table = new Table(rowData, headers) {
+    selection.elementMode = Table.ElementMode.Cell
+
+    // For marking the winning sequence
+    override protected def rendererComponent(isSelected: Boolean, hasFocus: Boolean, row: Int, column: Int) = {
+      if (model.getValueAt(row, column) != null && " Z".equals(String.valueOf(model.getValueAt(row, column))))
+        Component.wrap(tcr.getTableCellRendererComponent(peer, model.getValueAt(row, column), isSelected, hasFocus, row, column).asInstanceOf[JComponent])
+      else
+        Component.wrap(dtcr.getTableCellRendererComponent(peer, model.getValueAt(row, column), isSelected, hasFocus, row, column).asInstanceOf[JComponent])
+    }
+  }
+
   def startup() {
     val t = new MainFrame {
       title = "Five in a Row"
@@ -29,24 +47,11 @@ class HumanPlayer(board: Board) extends Player {
     t.visible = true
   }
 
-  val headers = Array.tabulate(20) { "" + _ }.toSeq
-  var rowData = ofDim[Any](20, 20)
-  val tcr = new WinningCellRenderer(board)
-  val dtcr = new DefaultTableCellRenderer
+  def yourTurn() {
+    table.update(board.lastMarker._1, board.lastMarker._2, board.lastMarker._3)
+  }
 
   lazy val ui = new BoxPanel(Orientation.Vertical) {
-    val table = new Table(rowData, headers) {
-      selection.elementMode = Table.ElementMode.Cell
-
-      // For marking the winning sequence
-      override protected def rendererComponent(isSelected: Boolean, hasFocus: Boolean, row: Int, column: Int) = {
-        if (model.getValueAt(row, column) != null && " Z".equals(String.valueOf(model.getValueAt(row, column))))
-          Component.wrap(tcr.getTableCellRendererComponent(peer, model.getValueAt(row, column), isSelected, hasFocus, row, column).asInstanceOf[JComponent])
-        else
-          Component.wrap(dtcr.getTableCellRendererComponent(peer, model.getValueAt(row, column), isSelected, hasFocus, row, column).asInstanceOf[JComponent])
-      }
-    }
-
     table.showGrid = true
     table.gridColor = java.awt.Color.DARK_GRAY
     table.selectionBackground = java.awt.Color.LIGHT_GRAY
@@ -81,9 +86,5 @@ class HumanPlayer(board: Board) extends Player {
     contents += new ScrollPane(table)
     contents += label
     rowData(9)(9) = board.nextPlayer().toString()
-  }
-
-  def yourTurn() {
-
   }
 }

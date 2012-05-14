@@ -6,6 +6,7 @@ class Board {
 	val NUM_COLS = 30
 	val CELL_PREFIX = 10
 	val data = new ArrayBuffer[Marker]
+	val players = Map.empty[CellState.Value, Player]	
 	
 	for (i <- 0 to NUM_ROWS-1){
 	  for (j <- 0 to NUM_COLS-1) {
@@ -25,6 +26,11 @@ class Board {
 	  false
 	}
 	
+	def addPlayer(player : Player) {
+	  if (players.isEmpty) players(CellState.X) = player
+	  else players(CellState.Y) = player
+	}
+	
 	def cellDimension : (Int,Int) = (NUM_ROWS-CELL_PREFIX, NUM_COLS-CELL_PREFIX)
 	
 	def setMarker(x : Int, y : Int) : Boolean ={
@@ -32,6 +38,7 @@ class Board {
 		  println("Set marker" + currPlayer.toString() + " at " + x + ", " + y)
 		  m(x,y).setState(currPlayer)
 		  lastMarker = (x, y, currPlayer)
+		  players(currPlayer).yourTurn()
 		  true
 	  } else {
 		  //println("Illegal marker" + currPlayer.toString() + " attempt at " + x + ", " + y)
