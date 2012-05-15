@@ -9,8 +9,9 @@ class DummyPlayer(board: Board) extends Player {
   val rand = new Random(System.currentTimeMillis());
 
   def yourTurn() {
-    val x = rand.nextInt(board.NUM_ROWS);
-    val y = rand.nextInt(board.NUM_COLS);
-    if (!board.setMarker(x, y)) yourTurn()
+//    val x = rand.nextInt(1);
+//    val y = rand.nextInt(1);
+//    if (!board.placeMarker(x, y)) yourTurn()
+    board.placeMarker(0,-1)
   }
 }
