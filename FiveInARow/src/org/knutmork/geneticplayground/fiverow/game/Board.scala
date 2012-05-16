@@ -90,7 +90,7 @@ class Board {
     reAdjustBoard(x, y)
     initialMove = false
 
-    debugBigTable()
+    //debugBigTable()
   }
 
   private def reAdjustBoard(x: Int, y: Int) {
@@ -130,10 +130,11 @@ class Board {
   }
   
   private def debugBigTable() {
-    //    println("Bigtable size: " + data.length)
-    //    print("Bigtable: ")
-    //    data.foreach(marker => print(marker.state + ", "))
-    //    println("")
+    println("Bigtable size: " + data.length)
+    print("Bigtable: ")
+    data.foreach(marker => print(marker.state + ", "))
+    println("")
+    
     for (i <- 0 to data.length - 1) {
       print(data(i).state)
       if ((i + 1) % (firstColIndex.abs + lastColIndex + 1) == 0) {

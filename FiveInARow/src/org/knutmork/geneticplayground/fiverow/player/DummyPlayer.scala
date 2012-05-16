@@ -15,10 +15,6 @@ class DummyPlayer(board: Board) extends Player {
     val possibleMoves = board.findLegalMoves()
     val chosenMove = possibleMoves(rand.nextInt(possibleMoves.size))
     println("Computer chosen move: " + chosenMove.pos._1 + ", " + chosenMove.pos._2)
-    if (board.placeMarker(chosenMove.pos._1, chosenMove.pos._2)) {
-      println("Placed move ok")
-    } else {
-      println("Placed move error")
-    }
+    board.placeMarker(chosenMove.pos._1, chosenMove.pos._2)
   }
 }
