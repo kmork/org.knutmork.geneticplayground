@@ -51,10 +51,9 @@ class Board {
   def currPlayer(): CellState.Value = if (CellState.X.equals(lastMarker._3)) CellState.Y else CellState.X
   def nextPlayer(): CellState.Value = lastMarker._3
 
-  private def m(x: Int, y: Int): Marker = {
-    //println("invoked m(" + x + ", " + y + ")")
+  //def matrix(x: Int, y: Int): Marker = {m(x, y)}
+  def m(x: Int, y: Int): Marker = {
     if (x < firstRowIndex || x > lastRowIndex || y < firstColIndex || y > lastColIndex) {
-      //println("returning temporary empty marker cell")
       new Marker(x, y) // Doesn't yet exist, just return a new empty one
     } else {
       //println("Mapped " + x + ", " + y + " to bigtable at index " + ((x + firstRowIndex.abs) * boardDimension._1 + (y + firstColIndex.abs)))
