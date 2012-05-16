@@ -11,7 +11,8 @@ object FiveInARow {
   	val board = new Board()
   	val human = new HumanPlayer(board)
   	//val computer = new DummyPlayer(board)
-  	val computer = new HandcraftedPlayer(board)
+  	//val computer = new HandcraftedPlayer(board)
+  	val computer = new GeneticPlayer(board)
   	println("Game ready")
 
   	human.startup() 	

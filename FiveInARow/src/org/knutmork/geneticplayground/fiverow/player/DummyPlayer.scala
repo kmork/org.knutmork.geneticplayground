@@ -8,8 +8,6 @@ class DummyPlayer(board: Board) extends Player {
   board.addPlayer(this)
   val rand = new Random(System.currentTimeMillis());
 
-  var init = true
-
   def yourTurn() {
     println("Computers turn")
     val possibleMoves = board.findLegalMoves()
