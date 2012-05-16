@@ -23,7 +23,7 @@ class HumanPlayer(board: Board) extends Player {
   board.addPlayer(this)
   var boardMatrixPos = (0, 0)
   
-  val table = new Table(ofDim[Any](30, 30), Array.tabulate(20) { "" + _ }.toSeq) {
+  val table = new Table(ofDim[Any](30, 30), Array.tabulate(30) {"" + _}.toSeq) {
     selection.elementMode = Table.ElementMode.Cell
     val tcr = new WinningCellRenderer(board)
     val dtcr = new DefaultTableCellRenderer

@@ -93,19 +93,6 @@ class Board {
     debugBigTable()
   }
 
-  private def debugBigTable() {
-//    println("Bigtable size: " + data.length)
-//    print("Bigtable: ")
-//    data.foreach(marker => print(marker.state + ", "))
-//    println("")
-    for (i <- 0 to data.length - 1) {
-      print(data(i).state)
-      if ((i+1)%(firstColIndex.abs + lastColIndex+1) == 0) {
-      	print("\n")
-      }
-    }
-  }
-
   private def reAdjustBoard(x: Int, y: Int) {
     if (x <= firstRowIndex) {
       // Add a top row
@@ -135,6 +122,23 @@ class Board {
         data.insert((i * (boardDimension._2 + 1)) - 1, new Marker(firstRowIndex + i, y + 1))
       }
       lastColIndex += 1
+    }
+  }
+
+  def findLegalMoves() : Seq[Marker] = {
+    data.filter(marker => marker.empty())
+  }
+  
+  private def debugBigTable() {
+    //    println("Bigtable size: " + data.length)
+    //    print("Bigtable: ")
+    //    data.foreach(marker => print(marker.state + ", "))
+    //    println("")
+    for (i <- 0 to data.length - 1) {
+      print(data(i).state)
+      if ((i + 1) % (firstColIndex.abs + lastColIndex + 1) == 0) {
+        print("\n")
+      }
     }
   }
 }
