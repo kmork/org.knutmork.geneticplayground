@@ -34,33 +34,32 @@ class Board {
   def boardDimension: (Int, Int) = (lastRowIndex + firstRowIndex.abs + 1, lastColIndex + firstColIndex.abs + 1)
 
   def placeMarker(x: Int, y: Int): Boolean = {
-    println("Try to place marker at " + x + ", " + y)
-    //println("Legal move: " + legalMove(x, y))
+    //println("Try to place marker at " + x + ", " + y)
     if (!gameOver && legalMove(x, y)) {
       updateBoard(x, y)
       togglePlayer(x, y)
       if (!gameOver) players(currPlayer).yourTurn()
       true
     } else {
-      println("Illegal marker" + currPlayer.toString() + " attempt at " + x + ", " + y)
+      //println("Illegal marker" + currPlayer.toString() + " attempt at " + x + ", " + y)
       false
     }
   }
 
   // Set next player as current
-  def togglePlayer(x: Int, y: Int) { lastMarker = (x, y, currPlayer) }
+  private def togglePlayer(x: Int, y: Int) { lastMarker = (x, y, currPlayer) }
 
   def currPlayer(): CellState.Value = if (CellState.X.equals(lastMarker._3)) CellState.Y else CellState.X
   def nextPlayer(): CellState.Value = lastMarker._3
 
-  def m(x: Int, y: Int): Marker = {
+  private def m(x: Int, y: Int): Marker = {
     //println("invoked m(" + x + ", " + y + ")")
     if (x < firstRowIndex || x > lastRowIndex || y < firstColIndex || y > lastColIndex) {
       //println("returning temporary empty marker cell")
       new Marker(x, y) // Doesn't yet exist, just return a new empty one
     } else {
-      println("Mapped " + x + ", " + y + " to bigtable at index " + ((x + firstRowIndex.abs) * boardDimension._1 + (y + firstColIndex.abs)))
-      data((x + firstRowIndex.abs) * boardDimension._1 + (y + firstColIndex.abs))
+      //println("Mapped " + x + ", " + y + " to bigtable at index " + ((x + firstRowIndex.abs) * boardDimension._1 + (y + firstColIndex.abs)))
+      data((x + firstRowIndex.abs) * boardDimension._2 + (y + firstColIndex.abs))
     }
   }
 
@@ -90,10 +89,21 @@ class Board {
     println("Set marker" + currPlayer.toString() + " at " + x + ", " + y)
     m(x, y).setState(currPlayer)
     reAdjustBoard(x, y)
-    println("Bigtable size: " + data.length)
-    print("Bigtable: ")
-    data.foreach(marker => print(marker.state + ", "))
-    println("")
+
+    debugBigTable()
+  }
+
+  private def debugBigTable() {
+//    println("Bigtable size: " + data.length)
+//    print("Bigtable: ")
+//    data.foreach(marker => print(marker.state + ", "))
+//    println("")
+    for (i <- 0 to data.length - 1) {
+      print(data(i).state)
+      if ((i+1)%(firstColIndex.abs + lastColIndex+1) == 0) {
+      	print("\n")
+      }
+    }
   }
 
   private def reAdjustBoard(x: Int, y: Int) {
@@ -114,7 +124,6 @@ class Board {
     if (y <= firstColIndex) {
       // Prepend a new col
       for (i <- 0 to boardDimension._1 - 1) {
-        println("Inserting index at " + i * (boardDimension._2 + 1))
         data.insert(i * (boardDimension._2 + 1), new Marker(firstRowIndex + i, y - 1))
       }
       firstColIndex -= 1
@@ -123,8 +132,7 @@ class Board {
     if (y >= lastColIndex) {
       // Append a new col
       for (i <- 1 to boardDimension._1) {
-        println("Inserting index at " + ((i * (boardDimension._2+1))-1))
-        data.insert((i * (boardDimension._2+1))-1, new Marker(firstRowIndex + i, y + 1))
+        data.insert((i * (boardDimension._2 + 1)) - 1, new Marker(firstRowIndex + i, y + 1))
       }
       lastColIndex += 1
     }

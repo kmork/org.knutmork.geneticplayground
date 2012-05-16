@@ -7,11 +7,17 @@ class DummyPlayer(board: Board) extends Player {
 
   board.addPlayer(this)
   val rand = new Random(System.currentTimeMillis());
+  
+  var init = true
 
   def yourTurn() {
 //    val x = rand.nextInt(1);
 //    val y = rand.nextInt(1);
 //    if (!board.placeMarker(x, y)) yourTurn()
-    board.placeMarker(0,-1)
+    if (init) {
+      board.placeMarker(0,-1)
+      init = false
+    } else {
+      board.placeMarker(-1, -1)}
   }
 }
