@@ -11,7 +11,14 @@ class DummyPlayer(board: Board) extends Player {
   var init = true
 
   def yourTurn() {
+    println("Computers turn")
     val possibleMoves = board.findLegalMoves()
-    board.placeMarker(possibleMoves(0).pos._1, possibleMoves(0).pos._2)
+    val chosenMove = possibleMoves(rand.nextInt(possibleMoves.size))
+    println("Computer chosen move: " + chosenMove.pos._1 + ", " + chosenMove.pos._2)
+    if (board.placeMarker(chosenMove.pos._1, chosenMove.pos._2)) {
+      println("Placed move ok")
+    } else {
+      println("Placed move error")
+    }
   }
 }

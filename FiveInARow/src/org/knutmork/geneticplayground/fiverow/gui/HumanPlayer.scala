@@ -67,8 +67,7 @@ class HumanPlayer(board: Board) extends Player {
         	initialMove = false
         }
         if (board.placeMarker(x-boardMatrixPos._1, y-boardMatrixPos._2)) {
-          //table.update(x, y, board.nextPlayer().toString())
-          table.update(x, y, " X")
+          table.update(x, y, board.currPlayer().toString())
           if (board.gameOver()) {
             label.text = "GAME OVER - Player" + board.nextPlayer.toString() + " won"
             board.winList.foreach { m =>

@@ -12,6 +12,7 @@ class Board {
   data += new Marker(0, 0)
   private val players = Map.empty[CellState.Value, Player]
 
+  var initialMove = true
   var lastMarker: (Int, Int, CellState.Value) = (-1, -1, CellState.Y)
   var winList = new ArrayBuffer[Marker]
 
@@ -23,8 +24,6 @@ class Board {
     }
     false
   }
-
-  def initialMove(): Boolean = lastMarker._1 == -1 && lastMarker._2 == -1
 
   def addPlayer(player: Player) {
     if (players.isEmpty) players(CellState.X) = player
@@ -89,6 +88,7 @@ class Board {
     println("Set marker" + currPlayer.toString() + " at " + x + ", " + y)
     m(x, y).setState(currPlayer)
     reAdjustBoard(x, y)
+    initialMove = false
 
     debugBigTable()
   }
@@ -96,7 +96,7 @@ class Board {
   private def reAdjustBoard(x: Int, y: Int) {
     if (x <= firstRowIndex) {
       // Add a top row
-      for (i <- firstColIndex to lastColIndex) {
+      for (i <- lastColIndex to firstColIndex by -1) {
         data.prepend(new Marker(x - 1, i))
       }
       firstRowIndex -= 1
@@ -119,14 +119,14 @@ class Board {
     if (y >= lastColIndex) {
       // Append a new col
       for (i <- 1 to boardDimension._1) {
-        data.insert((i * (boardDimension._2 + 1)) - 1, new Marker(firstRowIndex + i, y + 1))
+        data.insert((i * (boardDimension._2 + 1)) - 1, new Marker(firstRowIndex + i - 1, y + 1))
       }
       lastColIndex += 1
     }
   }
 
-  def findLegalMoves() : Seq[Marker] = {
-    data.filter(marker => marker.empty())
+  def findLegalMoves() : ArrayBuffer[Marker] = {
+    data.filter(marker => legalMove(marker.pos._1, marker.pos._2))
   }
   
   private def debugBigTable() {
@@ -136,6 +136,16 @@ class Board {
     //    println("")
     for (i <- 0 to data.length - 1) {
       print(data(i).state)
+      if ((i + 1) % (firstColIndex.abs + lastColIndex + 1) == 0) {
+        print("\n")
+      }
+    }
+    println("")
+    for (i <- 0 to data.length - 1) {
+      if ((data(i).pos._1) >= 0) {print(" ")}
+      print((data(i).pos._1) + ",")
+      if ((data(i).pos._2) >= 0) {print(" ")}
+      print((data(i).pos._2) + "  ")
       if ((i + 1) % (firstColIndex.abs + lastColIndex + 1) == 0) {
         print("\n")
       }
