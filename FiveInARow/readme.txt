@@ -17,5 +17,12 @@ Med andre ord:
 Antall gener er avhengig av ytelsen; jo flere gener jo mer tid trengs til alternative s¿k
 La oss starte med et lite antall gener, f.eks. 5-10
 
+Iterasjon 2:
+1 siffer er ikke n¿dvendig, f.eks. 0 i matrix size kan representeres som bare 0'ere i resten av genet
+Det gj¿r det lettere Œ parre og mutere. Da holder det med 80 siffer for ett gen
+
+GŒr det forresten an Œ la spillerne starte med et lite antall gener i utgangspunktet,
+ men deretter la de fŒ muligheten til Œ utvikle flere gener ? Da fŒr man samtidig en naturlig kompleksitetsutvikling 
+
 
 
