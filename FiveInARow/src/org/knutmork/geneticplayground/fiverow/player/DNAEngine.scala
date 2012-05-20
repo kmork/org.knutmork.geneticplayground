@@ -6,7 +6,7 @@ import org.knutmork.geneticplayground.fiverow.game.CellState
 
 class DNAEngine(player: CellState.Value) {
   val genes: ArrayBuffer[Gene] = new ArrayBuffer()
-  (0 to 1).foreach (i => {
+  (0 to 100).foreach (i => {
     genes += Gene.newRandomGene()
   })
   genes += Gene.newInitialGene() // At last keep a default gene which always makes a valid move

@@ -8,7 +8,7 @@ import org.knutmork.geneticplayground.fiverow.game.CellState
 class GeneticPlayer(name: String, board: Board) extends Player {
 
   board.addPlayer(this)
-  var dna : DNAEngine = new DNAEngine(CellState.Y) // // Hard coded for now 
+  var dna : DNAEngine = new DNAEngine(CellState.Y) 
   
   def yourTurn() {
     println("Computer " + name + "'s turn")
@@ -23,6 +23,7 @@ class GeneticPlayer(name: String, board: Board) extends Player {
   }
   
   def youWon() {
-    println("Player won with the gene bases: " + dna.printGenes())
+    println("Player won with the following gene bases: ")
+    dna.printGenes()
   }
 }
