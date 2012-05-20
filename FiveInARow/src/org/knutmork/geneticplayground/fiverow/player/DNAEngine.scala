@@ -6,13 +6,12 @@ import org.knutmork.geneticplayground.fiverow.game.CellState
 
 class DNAEngine(player: CellState.Value) {
   val genes: ArrayBuffer[Gene] = new ArrayBuffer()
-  (0 to 100).foreach (i => {
+  (0 to 1).foreach (i => {
     genes += Gene.newRandomGene()
-    println(genes(i))
   })
   genes += Gene.newInitialGene() // At last keep a default gene which always makes a valid move
 
-  def process(cells: ArrayBuffer[Marker], b: Board): Marker = {
+  def process(cells: Seq[Marker], b: Board): Marker = {
     cells.foldLeft[(Int, Marker)](Int.MaxValue, new Marker(0,0)) { (lowestCellPoint, cell) => 
       val m = mapBoardToArray(cell, b)
       var points = genes.size
@@ -35,7 +34,7 @@ class DNAEngine(player: CellState.Value) {
     }._2
   }
 
-  def mapBoardToArray(cell: Marker, b: Board): ArrayBuffer[Marker] = {
+  private def mapBoardToArray(cell: Marker, b: Board): ArrayBuffer[Marker] = {
     val m = new ArrayBuffer[Marker] 
     for (x <- -4 to 4) {
       for (y <- -4 to 4) {
@@ -45,5 +44,9 @@ class DNAEngine(player: CellState.Value) {
       }
     }
     m
+  }
+  
+  def printGenes() {
+    genes.foreach(gene => println(gene))
   }
 }

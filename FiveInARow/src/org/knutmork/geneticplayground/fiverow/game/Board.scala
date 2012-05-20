@@ -1,5 +1,6 @@
 package org.knutmork.geneticplayground.fiverow.game
 import scala.collection.mutable._
+import scala.util.Random
 
 class Board {
   // dynamic size of matrix, starting with just one cell
@@ -9,6 +10,7 @@ class Board {
   private var lastColIndex = 0
 
   private val data = new ArrayBuffer[Marker]
+
   data += new Marker(0, 0)
   private val players = Map.empty[CellState.Value, Player]
 
@@ -37,7 +39,7 @@ class Board {
     if (!gameOver && legalMove(x, y)) {
       updateBoard(x, y)
       togglePlayer(x, y)
-      if (!gameOver) { players(currPlayer).yourTurn() } else {players(nextPlayer).youWon()}
+      if (!gameOver) { players(currPlayer).yourTurn() } else { players(nextPlayer).youWon() }
       true
     } else {
       //println("Illegal marker" + currPlayer.toString() + " attempt at " + x + ", " + y)
@@ -124,16 +126,17 @@ class Board {
     }
   }
 
-  def findLegalMoves() : ArrayBuffer[Marker] = {
-    data.filter(marker => legalMove(marker.pos._1, marker.pos._2))
+  // Returns legal possible moves in a random sequence
+  def findLegalMoves(): scala.collection.Seq[Marker] = {
+    Random.shuffle(data.filter(marker => legalMove(marker.pos._1, marker.pos._2)).toSeq)
   }
-  
+
   private def debugBigTable() {
-//    println("Bigtable size: " + data.length)
-//    print("Bigtable: ")
-//    data.foreach(marker => print(marker.state + ", "))
-//    println("")
-//    
+    //    println("Bigtable size: " + data.length)
+    //    print("Bigtable: ")
+    //    data.foreach(marker => print(marker.state + ", "))
+    //    println("")
+    //    
     for (i <- 0 to data.length - 1) {
       print(data(i).state)
       if ((i + 1) % (firstColIndex.abs + lastColIndex + 1) == 0) {
@@ -141,14 +144,14 @@ class Board {
       }
     }
     println("")
-//    for (i <- 0 to data.length - 1) {
-//      if ((data(i).pos._1) >= 0) {print(" ")}
-//      print((data(i).pos._1) + ",")
-//      if ((data(i).pos._2) >= 0) {print(" ")}
-//      print((data(i).pos._2) + "  ")
-//      if ((i + 1) % (firstColIndex.abs + lastColIndex + 1) == 0) {
-//        print("\n")
-//      }
-//    }
+    //    for (i <- 0 to data.length - 1) {
+    //      if ((data(i).pos._1) >= 0) {print(" ")}
+    //      print((data(i).pos._1) + ",")
+    //      if ((data(i).pos._2) >= 0) {print(" ")}
+    //      print((data(i).pos._2) + "  ")
+    //      if ((i + 1) % (firstColIndex.abs + lastColIndex + 1) == 0) {
+    //        print("\n")
+    //      }
+    //    }
   }
 }

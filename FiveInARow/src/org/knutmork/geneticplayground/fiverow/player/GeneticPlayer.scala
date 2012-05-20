@@ -22,5 +22,7 @@ class GeneticPlayer(name: String, board: Board) extends Player {
     board.placeMarker(0, 0)
   }
   
-  def youWon() {}
+  def youWon() {
+    println("Player won with the gene bases: " + dna.printGenes())
+  }
 }
