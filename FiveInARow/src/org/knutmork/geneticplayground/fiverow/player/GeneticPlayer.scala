@@ -5,17 +5,22 @@ import scala.util.Random
 import scala.collection.mutable.ArrayBuffer
 import org.knutmork.geneticplayground.fiverow.game.CellState
 
-class GeneticPlayer(board: Board) extends Player {
+class GeneticPlayer(name: String, board: Board) extends Player {
 
   board.addPlayer(this)
-  val rand = new Random(System.currentTimeMillis());
-  
-  val dna : DNAEngine = new DNAEngine(CellState.Y) // // Hard coded for now 
+  var dna : DNAEngine = new DNAEngine(CellState.Y) // // Hard coded for now 
   
   def yourTurn() {
-    println("Computers turn")
+    println("Computer " + name + "'s turn")
     val chosenMove = dna.process(board.findLegalMoves(), board)
     println("Computer chosen move: " + chosenMove.pos._1 + ", " + chosenMove.pos._2)
     board.placeMarker(chosenMove.pos._1, chosenMove.pos._2)
   }
+  
+  def firstMove() {
+    dna = new DNAEngine(CellState.X)
+    board.placeMarker(0, 0)
+  }
+  
+  def youWon() {}
 }

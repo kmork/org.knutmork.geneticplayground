@@ -22,8 +22,9 @@ class HumanPlayer(board: Board) extends Player {
 
   board.addPlayer(this)
   var boardMatrixPos = (0, 0)
-  
-  val table = new Table(ofDim[Any](30, 30), Array.tabulate(30) {"" + _}.toSeq) {
+
+  val label = new Label("")
+  val table = new Table(ofDim[Any](30, 30), Array.tabulate(30) { "" + _ }.toSeq) {
     selection.elementMode = Table.ElementMode.Cell
     val tcr = new WinningCellRenderer(board)
     val dtcr = new DefaultTableCellRenderer
@@ -47,33 +48,34 @@ class HumanPlayer(board: Board) extends Player {
   }
 
   def yourTurn() {
-    table.update(board.lastMarker._1+boardMatrixPos._1, board.lastMarker._2+boardMatrixPos._2, board.lastMarker._3)
+    table.update(board.lastMarker._1 + boardMatrixPos._1, board.lastMarker._2 + boardMatrixPos._2, board.lastMarker._3)
   }
-  
+
+  def youWon() {
+    label.text = "GAME OVER - Player" + board.nextPlayer.toString() + " won"
+    board.winList.foreach { m =>
+      table.update(m.pos._1 + boardMatrixPos._1, m.pos._2 + boardMatrixPos._2, " Z")
+    }
+  }
+
   lazy val ui = new BoxPanel(Orientation.Vertical) {
     table.showGrid = true
     table.gridColor = java.awt.Color.DARK_GRAY
     table.selectionBackground = java.awt.Color.LIGHT_GRAY
-    val label = new Label("")
     val header = table.peer.getTableHeader()
     var initialMove = true
- 
+
     listenTo(table.selection)
 
     def outputSelection(x: Int, y: Int) {
       if (x > -1 && y > -1) {
         if (initialMove) {
-        	boardMatrixPos = (x, y)
-        	initialMove = false
+          boardMatrixPos = (x, y)
+          initialMove = false
         }
-        if (board.placeMarker(x-boardMatrixPos._1, y-boardMatrixPos._2)) {
-          table.update(x, y, board.currPlayer().toString())
-          if (board.gameOver()) {
-            label.text = "GAME OVER - Player" + board.nextPlayer.toString() + " won"
-            board.winList.foreach { m =>
-              table.update(m.pos._1+boardMatrixPos._1, m.pos._2+boardMatrixPos._2, " Z")
-            }
-          } else {
+        if (board.placeMarker(x - boardMatrixPos._1, y - boardMatrixPos._2)) {
+          if(!board.gameOver()) {
+            table.update(x, y, board.currPlayer().toString())
             label.text = "Player " + board.currPlayer.toString()
           }
         }

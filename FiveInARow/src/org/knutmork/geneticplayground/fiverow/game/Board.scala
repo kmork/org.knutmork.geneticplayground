@@ -37,7 +37,7 @@ class Board {
     if (!gameOver && legalMove(x, y)) {
       updateBoard(x, y)
       togglePlayer(x, y)
-      if (!gameOver) players(currPlayer).yourTurn()
+      if (!gameOver) { players(currPlayer).yourTurn() } else {players(nextPlayer).youWon()}
       true
     } else {
       //println("Illegal marker" + currPlayer.toString() + " attempt at " + x + ", " + y)
@@ -89,7 +89,7 @@ class Board {
     reAdjustBoard(x, y)
     initialMove = false
 
-    //debugBigTable()
+    debugBigTable()
   }
 
   private def reAdjustBoard(x: Int, y: Int) {
@@ -129,11 +129,11 @@ class Board {
   }
   
   private def debugBigTable() {
-    println("Bigtable size: " + data.length)
-    print("Bigtable: ")
-    data.foreach(marker => print(marker.state + ", "))
-    println("")
-    
+//    println("Bigtable size: " + data.length)
+//    print("Bigtable: ")
+//    data.foreach(marker => print(marker.state + ", "))
+//    println("")
+//    
     for (i <- 0 to data.length - 1) {
       print(data(i).state)
       if ((i + 1) % (firstColIndex.abs + lastColIndex + 1) == 0) {
@@ -141,14 +141,14 @@ class Board {
       }
     }
     println("")
-    for (i <- 0 to data.length - 1) {
-      if ((data(i).pos._1) >= 0) {print(" ")}
-      print((data(i).pos._1) + ",")
-      if ((data(i).pos._2) >= 0) {print(" ")}
-      print((data(i).pos._2) + "  ")
-      if ((i + 1) % (firstColIndex.abs + lastColIndex + 1) == 0) {
-        print("\n")
-      }
-    }
+//    for (i <- 0 to data.length - 1) {
+//      if ((data(i).pos._1) >= 0) {print(" ")}
+//      print((data(i).pos._1) + ",")
+//      if ((data(i).pos._2) >= 0) {print(" ")}
+//      print((data(i).pos._2) + "  ")
+//      if ((i + 1) % (firstColIndex.abs + lastColIndex + 1) == 0) {
+//        print("\n")
+//      }
+//    }
   }
 }
