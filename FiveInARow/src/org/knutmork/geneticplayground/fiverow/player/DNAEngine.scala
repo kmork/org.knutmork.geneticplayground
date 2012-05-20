@@ -9,10 +9,12 @@ class DNAEngine(player: CellState.Value) {
   genes += new Gene()
 
   def process(cells: ArrayBuffer[Marker], b: Board): Marker = {
-    val cellCandidates = cells.filter(cell => {
+    cells.foldLeft[(Int, Marker)](Int.MaxValue, new Marker(0,0)) { (lowestCellPoint, cell) => 
       val m = mapBoardToArray(cell, b)
+      var points = genes.size
       var ok = false
       (0 until genes.size).toStream.takeWhile(_ => !ok).foreach(g => {
+        points = g
         val gene = genes(g)
         ok = true
         (0 until gene.base.size).toStream.takeWhile(_ => ok).foreach(i => {
@@ -25,9 +27,8 @@ class DNAEngine(player: CellState.Value) {
           }
         })
       })
-      ok
-    })
-    cellCandidates.head
+      if (points < lowestCellPoint._1) {(points, cell)} else {lowestCellPoint}
+    }._2
   }
 
   def mapBoardToArray(cell: Marker, b: Board): ArrayBuffer[Marker] = {
