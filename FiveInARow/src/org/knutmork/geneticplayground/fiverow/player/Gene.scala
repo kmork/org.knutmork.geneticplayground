@@ -11,7 +11,7 @@ object Gene {
   def newRandomGene(): Gene = {
     val rand = new Random(System.currentTimeMillis());
     var geneBase = ""
-    (0 until 80).foreach (i => {
+    (0 until Gene.size).foreach (i => {
       geneBase += rand.nextInt(4)
     })
     new Gene(geneBase)
@@ -19,7 +19,9 @@ object Gene {
   
   def newInitialGene(): Gene = {
     new Gene("00000000000000000000000000000000000000000000000000000000000000000000000000000000") // 80 digits
-  }  
+  }
+  
+  def size: Int = 80
 }
 
 class Gene private (val base: StringOps) {
