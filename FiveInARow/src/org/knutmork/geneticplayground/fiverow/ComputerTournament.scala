@@ -9,13 +9,18 @@ object ComputerTournament {
 
   def main(args: Array[String]): Unit = {
     
-  	println("Initiating and playing 50 games with 100 new players...")
-  	val games = new ListBuffer[Game]
-  	(0 to 49).foreach(i => games += new Game() )
+  	println("Initiating 100 new players...")
+  	
+  	val players = new ArrayBuffer[GeneticPlayer]
+  	(0 to 99).foreach(i => players += new GeneticPlayer("C"+ i ))
+  	
+  	println("Playing 50 first games...") 
+  	(0 to 99 by 2).foreach(i => new Game(players(i), players(i+1)))
   	println("Round 1 finished")
   	
-  	games.foreach(g => println(g.winner()))
-  	println("Finished")
+  	println("Total score:")
+  	players.foreach(println)
+
   }
 }
 

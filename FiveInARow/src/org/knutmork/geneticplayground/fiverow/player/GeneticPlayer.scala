@@ -27,5 +27,5 @@ class GeneticPlayer(name: String) extends Player {
     //dna.printGenes()
   }
   
-  override def toString = "GeneticPlayer: " + name
+  override def toString = "GeneticPlayer: " + name + ", score: " + survivalCount
 }
