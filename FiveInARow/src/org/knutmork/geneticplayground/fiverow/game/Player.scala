@@ -1,6 +1,6 @@
 package org.knutmork.geneticplayground.fiverow.game
 
 trait Player {
-	def yourTurn()
-	def youWon()
+	def yourTurn(board: Board)
+	def youWon(board: Board)
 }

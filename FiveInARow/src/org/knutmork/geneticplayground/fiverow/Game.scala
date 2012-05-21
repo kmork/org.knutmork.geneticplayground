@@ -10,22 +10,26 @@ object Game {
   	println("Initiating new game...")
   	val board = new Board()
   	//val human = new HumanPlayer(board)
-  	//val computer = new DummyPlayer(board)
-  	//val computer = new HandcraftedPlayer(board)
-  	val computer1 = new GeneticPlayer("1", board)
-  	val computer2 = new GeneticPlayer("2", board)
+  	//val computer = new DummyPlayer()
+  	//val computer = new HandcraftedPlayer()
+  	val computer1 = new GeneticPlayer("1")
+  	board.addPlayer(computer1)
+  	val computer2 = new GeneticPlayer("2")
+  	board.addPlayer(computer2)
   	println("Game ready")
 
   	//human.startup() 	
-  	computer1.firstMove()
+  	computer1.firstMove(board)
   }
 }
 
 class Game {
   val board = new Board()
-  val player1 = new GeneticPlayer("1", board)
-  val player2 = new GeneticPlayer("2", board)
-  player1.firstMove()
+  val player1 = new GeneticPlayer("1")
+  board.addPlayer(player1)
+  val player2 = new GeneticPlayer("2")
+  board.addPlayer(player2)
+  player1.firstMove(board)
   
   def winner(): GeneticPlayer = {
     if (player1.survivalCount > 0) player1 else player2

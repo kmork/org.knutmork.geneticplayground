@@ -4,7 +4,7 @@ import org.knutmork.geneticplayground.fiverow.game.Marker
 import org.knutmork.geneticplayground.fiverow.game.Board
 import org.knutmork.geneticplayground.fiverow.game.CellState
 
-class DNAEngine(player: CellState.Value) {
+class DNAEngine(player: GeneticPlayer) {
   val genes: ArrayBuffer[Gene] = new ArrayBuffer()
   (0 to 100).foreach (i => {
     genes += Gene.newRandomGene()
@@ -24,8 +24,8 @@ class DNAEngine(player: CellState.Value) {
           ok = Integer.parseInt(gene.base.substring(i, i + 1)) match {
             case Gene.UNKNOWN => true
             case Gene.NOT_SET => m(i).state.equals(CellState.NOT_SET)
-            case Gene.ME => m(i).state.equals(player)
-            case Gene.OPPONENT => (!m(i).state.equals(player) && !m(i).state.equals(CellState.NOT_SET))
+            case Gene.ME => m(i).state.equals(player.marker)
+            case Gene.OPPONENT => (!m(i).state.equals(player.marker) && !m(i).state.equals(CellState.NOT_SET))
             case other => println("Error in Gene data - not recognizable digit: " + gene.base.substring(i, i + 1)); false
           }
         })

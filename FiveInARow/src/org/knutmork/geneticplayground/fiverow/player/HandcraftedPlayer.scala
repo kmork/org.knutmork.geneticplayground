@@ -7,26 +7,25 @@ import scala.collection.mutable.ArrayBuffer
 import org.knutmork.geneticplayground.fiverow.game.CellState
 
 // Offensive player, don't care about defense
-class HandcraftedPlayer(board: Board) extends Player {
+class HandcraftedPlayer() extends Player {
 
-  board.addPlayer(this)
   val rand = new Random(System.currentTimeMillis());
 
-  def youWon() {}
+  def youWon(board: Board) {}
   
-  def yourTurn() {
+  def yourTurn(board: Board) {
     println("Computers turn")
     var chosenMove: Marker = null
     val possibleMoves = board.findLegalMoves()
-    val possibleWinnerMoves = possibleMoves.filter(marker => findSequence(marker, 5))
+    val possibleWinnerMoves = possibleMoves.filter(marker => findSequence(board, marker, 5))
     if (possibleWinnerMoves.size > 0) {
       chosenMove = possibleWinnerMoves.head
     } else {
-      val possibleBetterMoves = possibleMoves.filter(marker => findSequence(marker, 4))
+      val possibleBetterMoves = possibleMoves.filter(marker => findSequence(board, marker, 4))
       if (possibleBetterMoves.size > 0) {
         chosenMove = possibleBetterMoves.head
       } else {
-        val possibleOkMoves = possibleMoves.filter(marker => findSequence(marker, 3))
+        val possibleOkMoves = possibleMoves.filter(marker => findSequence(board, marker, 3))
         if (possibleOkMoves.size > 0) {
           chosenMove = possibleOkMoves.head
         } else {
@@ -38,7 +37,7 @@ class HandcraftedPlayer(board: Board) extends Player {
     board.placeMarker(chosenMove.pos._1, chosenMove.pos._2)
   }
 
-  def findSequence(marker: Marker, num: Int): Boolean = {
+  def findSequence(board: Board, marker: Marker, num: Int): Boolean = {
     var found = false
     val x = marker.pos._1
     val y = marker.pos._2

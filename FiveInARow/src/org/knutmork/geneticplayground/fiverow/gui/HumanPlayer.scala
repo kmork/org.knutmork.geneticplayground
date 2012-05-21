@@ -47,11 +47,11 @@ class HumanPlayer(board: Board) extends Player {
     t.visible = true
   }
 
-  def yourTurn() {
+  def yourTurn(board: Board) {
     table.update(board.lastMarker._1 + boardMatrixPos._1, board.lastMarker._2 + boardMatrixPos._2, board.lastMarker._3)
   }
 
-  def youWon() {
+  def youWon(board: Board) {
     label.text = "GAME OVER - Player" + board.nextPlayer.toString() + " won"
     board.winList.foreach { m =>
       table.update(m.pos._1 + boardMatrixPos._1, m.pos._2 + boardMatrixPos._2, " Z")

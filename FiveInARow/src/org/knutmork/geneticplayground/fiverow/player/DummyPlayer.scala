@@ -3,14 +3,13 @@ import org.knutmork.geneticplayground.fiverow.game.Board
 import org.knutmork.geneticplayground.fiverow.game.Player
 import scala.util.Random
 
-class DummyPlayer(board: Board) extends Player {
+class DummyPlayer() extends Player {
 
-  board.addPlayer(this)
   val rand = new Random(System.currentTimeMillis());
 
-  def youWon() {}
+  def youWon(board: Board) {}
   
-  def yourTurn() {
+  def yourTurn(board: Board) {
     println("Computers turn")
     val possibleMoves = board.findLegalMoves()
     val chosenMove = possibleMoves(rand.nextInt(possibleMoves.size))

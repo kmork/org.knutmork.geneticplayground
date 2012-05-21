@@ -39,7 +39,7 @@ class Board {
     if (!gameOver && legalMove(x, y)) {
       updateBoard(x, y)
       togglePlayer(x, y)
-      if (!gameOver) { players(currPlayer).yourTurn() } else { players(nextPlayer).youWon() }
+      if (!gameOver) { players(currPlayer).yourTurn(this) } else { players(nextPlayer).youWon(this) }
       true
     } else {
       //println("Illegal marker" + currPlayer.toString() + " attempt at " + x + ", " + y)
