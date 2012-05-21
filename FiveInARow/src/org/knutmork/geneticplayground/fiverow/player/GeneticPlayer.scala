@@ -8,12 +8,13 @@ import org.knutmork.geneticplayground.fiverow.game.CellState
 class GeneticPlayer(name: String, board: Board) extends Player {
 
   board.addPlayer(this)
-  var dna : DNAEngine = new DNAEngine(CellState.Y) 
+  var dna : DNAEngine = new DNAEngine(CellState.Y)
+  var survivalCount = 0
   
   def yourTurn() {
-    println("Computer " + name + "'s turn")
+    //println("Computer " + name + "'s turn")
     val chosenMove = dna.process(board.findLegalMoves(), board)
-    println("Computer chosen move: " + chosenMove.pos._1 + ", " + chosenMove.pos._2)
+    //println("Computer chosen move: " + chosenMove.pos._1 + ", " + chosenMove.pos._2)
     board.placeMarker(chosenMove.pos._1, chosenMove.pos._2)
   }
   
@@ -23,7 +24,10 @@ class GeneticPlayer(name: String, board: Board) extends Player {
   }
   
   def youWon() {
-    println("Player won with the following gene bases: ")
-    dna.printGenes()
+    survivalCount += 1
+    println("Player " + name + " won game")
+    //dna.printGenes()
   }
+  
+  override def toString = "GeneticPlayer: " + name
 }

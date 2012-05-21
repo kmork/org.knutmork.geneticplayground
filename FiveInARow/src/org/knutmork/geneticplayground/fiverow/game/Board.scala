@@ -86,12 +86,12 @@ class Board {
   }
 
   private def updateBoard(x: Int, y: Int) {
-    println("Set marker" + currPlayer.toString() + " at " + x + ", " + y)
+    //println("Set marker" + currPlayer.toString() + " at " + x + ", " + y)
     m(x, y).setState(currPlayer)
     reAdjustBoard(x, y)
     initialMove = false
 
-    debugBigTable()
+    //debugBigTable()
   }
 
   private def reAdjustBoard(x: Int, y: Int) {
@@ -132,11 +132,6 @@ class Board {
   }
 
   private def debugBigTable() {
-    //    println("Bigtable size: " + data.length)
-    //    print("Bigtable: ")
-    //    data.foreach(marker => print(marker.state + ", "))
-    //    println("")
-    //    
     for (i <- 0 to data.length - 1) {
       print(data(i).state)
       if ((i + 1) % (firstColIndex.abs + lastColIndex + 1) == 0) {

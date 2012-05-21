@@ -3,7 +3,7 @@ import org.knutmork.geneticplayground.fiverow.game.Board
 import org.knutmork.geneticplayground.fiverow.gui.HumanPlayer
 import org.knutmork.geneticplayground.fiverow.player._
 
-object FiveInARow {
+object Game {
 
   def main(args: Array[String]): Unit = {
     
@@ -18,5 +18,16 @@ object FiveInARow {
 
   	//human.startup() 	
   	computer1.firstMove()
+  }
+}
+
+class Game {
+  val board = new Board()
+  val player1 = new GeneticPlayer("1", board)
+  val player2 = new GeneticPlayer("2", board)
+  player1.firstMove()
+  
+  def winner(): GeneticPlayer = {
+    if (player1.survivalCount > 0) player1 else player2
   }
 }
