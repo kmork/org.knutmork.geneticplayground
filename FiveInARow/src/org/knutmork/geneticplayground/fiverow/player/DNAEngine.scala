@@ -7,6 +7,9 @@ import org.knutmork.geneticplayground.fiverow.game.CellState
 import org.knutmork.geneticplayground.fiverow.game.Marker
 
 object DNAEngine {
+  val NUM_GENES: Int = 10
+  val rand = new Random(System.currentTimeMillis())
+  
   def createNextGeneration(players: ArrayBuffer[GeneticPlayer]): ArrayBuffer[GeneticPlayer] = {
     val nextGen = new ArrayBuffer[GeneticPlayer]
     while (nextGen.size < players.size) {
@@ -17,7 +20,7 @@ object DNAEngine {
   }
 
   private def rouletteWheelSelection(players: ArrayBuffer[GeneticPlayer]): GeneticPlayer = {
-    var rnd = new Random(System.currentTimeMillis()).nextInt(100 * 100) // 10000 max total score based on 100 * 100 games
+    var rnd = rand.nextInt(100) // 10000 max total score based on 100 * 100 games
     var i = 0
     while (rnd > 0) {
       rnd = rnd - players(i).survivalCount
@@ -27,19 +30,23 @@ object DNAEngine {
   }
 
   private def mate(player1: GeneticPlayer, player2: GeneticPlayer): (GeneticPlayer, GeneticPlayer) = {
-    var rnd = new Random(System.currentTimeMillis()).nextInt(Gene.size * 100) // Number of bases - 100 genes of 80 digits each
-    (player1, player2)
+    // TODO: Missing mutation
+    var rnd = new Random(System.currentTimeMillis()).nextInt(Gene.size * DNAEngine.NUM_GENES)
+    val offspring1DNA = player1.dna.genes.mkString.substring(0, rnd) + player2.dna.genes.mkString.substring(rnd)
+    val offspring2DNA = player2.dna.genes.mkString.substring(0, rnd) + player1.dna.genes.mkString.substring(rnd)
+    (GeneticPlayer(player1.name + player2.name, offspring1DNA), GeneticPlayer(player2.name + player1.name, offspring2DNA))
   }
 }
 
-class DNAEngine(player: GeneticPlayer) {
+class DNAEngine(dnaString: String) {
   val genes: ArrayBuffer[Gene] = new ArrayBuffer()
-  (0 to 100).foreach(i => {
-    genes += Gene.newRandomGene()
+  (0 until DNAEngine.NUM_GENES).foreach(i => {
+    if (dnaString == null) {genes += Gene.newRandomGene()}
+    else {genes += Gene.newFromString(dnaString.substring(i*Gene.size, (i+1)*Gene.size))}
   })
   genes += Gene.newInitialGene() // At last keep a default gene which always makes a valid move
 
-  def process(cells: Seq[Marker], b: Board): Marker = {
+  def process(player: GeneticPlayer, cells: Seq[Marker], b: Board): Marker = {
     cells.foldLeft[(Int, Marker)](Int.MaxValue, new Marker(0, 0)) { (lowestCellPoint, cell) =>
       val m = mapBoardToArray(cell, b)
       var points = genes.size

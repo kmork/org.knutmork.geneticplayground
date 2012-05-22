@@ -11,11 +11,11 @@ object ComputerTournament {
 
     println("Initiating 100 new players...")
     val players = new ArrayBuffer[GeneticPlayer]
-    (0 to 99).foreach(i => players += new GeneticPlayer("C" + i))
+    (0 to 9).foreach(i => players += GeneticPlayer("C" + i))
 
     println("Playing games for 1. generation players...")
-    (0 to 99).foreach(i => {
-      (0 to 99).foreach(j => new ComputerGame(players(i), players(j)))
+    (0 to 9).foreach(i => {
+      (0 to 9).foreach(j => new ComputerGame(players(i), players(j)))
       println("Round " + i + " finished")
     })
 
@@ -23,6 +23,8 @@ object ComputerTournament {
     players.foreach(println)
     
     val players2 = DNAEngine.createNextGeneration(players)
+    println("Total score:")
+    players2.foreach(println)
 
 
   }

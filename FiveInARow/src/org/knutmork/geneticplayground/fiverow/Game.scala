@@ -12,7 +12,7 @@ object Game {
   	val human = new HumanPlayer(board)
   	//val computer = new DummyPlayer()
   	//val computer = new HandcraftedPlayer()
-  	val computer1 = new GeneticPlayer("1")
+  	val computer1 = GeneticPlayer("1")
   	board.addPlayer(computer1)
   	println("Game ready")
 

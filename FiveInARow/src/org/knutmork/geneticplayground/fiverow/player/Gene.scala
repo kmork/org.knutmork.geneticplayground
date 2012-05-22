@@ -21,6 +21,10 @@ object Gene {
     new Gene("00000000000000000000000000000000000000000000000000000000000000000000000000000000") // 80 digits
   }
   
+  def newFromString(s: String) = {
+    new Gene(s)
+  }
+  
   def size: Int = 80
 }
 
