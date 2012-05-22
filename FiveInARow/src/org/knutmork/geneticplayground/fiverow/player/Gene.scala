@@ -29,5 +29,5 @@ object Gene {
 }
 
 class Gene private (val base: StringOps) {
-  override def toString = "Gene base: " + base
+  override def toString = base
 }
