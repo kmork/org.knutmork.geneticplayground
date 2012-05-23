@@ -10,19 +10,19 @@ object DNAEngine {
   val NUM_GENES: Int = 10
   val rand = new Random(System.currentTimeMillis())
   
-  def createNextGeneration(players: ArrayBuffer[GeneticPlayer]): ArrayBuffer[GeneticPlayer] = {
+  def createNextGeneration(players: ArrayBuffer[GeneticPlayer], numGames: Int): ArrayBuffer[GeneticPlayer] = {
     val nextGen = new ArrayBuffer[GeneticPlayer]
     while (nextGen.size < players.size) {
-      val offsprings = mate(rouletteWheelSelection(players), rouletteWheelSelection(players))
+      val offsprings = mate(rouletteWheelSelection(players, numGames), rouletteWheelSelection(players, numGames))
       nextGen += (offsprings._1, offsprings._2)
     }
     nextGen
   }
 
-  private def rouletteWheelSelection(players: ArrayBuffer[GeneticPlayer]): GeneticPlayer = {
-    var rnd = rand.nextInt(100) // 10000 max total score based on 100 * 100 games
+  private def rouletteWheelSelection(players: ArrayBuffer[GeneticPlayer], numGames: Int): GeneticPlayer = {
+    var rnd = rand.nextInt(numGames) + 1// 1 point per game
     var i = 0
-    while (rnd > 0) {
+    while (rnd > players(i).survivalCount) {
       rnd = rnd - players(i).survivalCount
       i += 1
     }
@@ -82,6 +82,7 @@ class DNAEngine(dnaString: String) {
   }
 
   def printGenes() {
-    genes.foreach(gene => println(gene))
+    genes.foreach(gene => print(gene))
+    println("")
   }
 }
