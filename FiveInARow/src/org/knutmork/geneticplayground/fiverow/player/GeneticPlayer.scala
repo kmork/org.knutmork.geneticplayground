@@ -36,7 +36,7 @@ class GeneticPlayer(name: String, dnaString: String) extends Player {
 
   def youWon(board: Board) {
     survivalCount += 1
-    println("Player " + name + " won game")
+    //println("Player " + name + " won game")
   }
 
   override def toString = "GeneticPlayer: " + name + ", score: " + survivalCount

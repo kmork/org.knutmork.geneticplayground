@@ -6,34 +6,28 @@ import org.knutmork.geneticplayground.fiverow.player.DNAEngine
 import org.knutmork.geneticplayground.fiverow.player.GeneticPlayer
 
 object ComputerTournament {
-  val NUM_PLAYERS: Int = 10
+  val NUM_PLAYERS: Int = 30
+  val NUM_GENERATIONS: Int = 30
+  val MUTATION_RATE: Int = 0
 
   def main(args: Array[String]): Unit = {
 
     println("Initiating " + NUM_PLAYERS + " new players...")
-    val players = new ArrayBuffer[GeneticPlayer]
+    var players = new ArrayBuffer[GeneticPlayer]
     (0 until NUM_PLAYERS).foreach(i => players += GeneticPlayer("C" + i))
 
-    println("Playing games for 1. generation players...")
-    (0 until NUM_PLAYERS).foreach(i => {
-      (0 until NUM_PLAYERS).foreach(j => new ComputerGame(players(i), players(j)))
-      println("Round " + i + " finished")
-    })
+    (0 until NUM_GENERATIONS).foreach(g => {
+      println("Playing games for " + g + ". generation players...")
+      (0 until NUM_PLAYERS).foreach(i => {
+        (0 until NUM_PLAYERS).foreach(j => new ComputerGame(players(i), players(j)))
+        println("Round " + i + " finished")
+      })
 
-    println("Total score:")
-    players.foreach(println)
+      println("Total score:")
+      players.foreach(println)
     
-    val players2 = DNAEngine.createNextGeneration(players, NUM_PLAYERS*NUM_PLAYERS)
-    println("Playing games for 2. generation players...")
-    (0 until NUM_PLAYERS).foreach(i => {
-      (0 until NUM_PLAYERS).foreach(j => new ComputerGame(players2(i), players2(j)))
-      println("Round " + i + " finished")
+      players = DNAEngine.createNextGeneration(players, NUM_PLAYERS*NUM_PLAYERS)
     })
-
-    println("Total score:")
-    players2.foreach(println)
-
-
   }
 }
 

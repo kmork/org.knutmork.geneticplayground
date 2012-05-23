@@ -7,7 +7,7 @@ import org.knutmork.geneticplayground.fiverow.game.CellState
 import org.knutmork.geneticplayground.fiverow.game.Marker
 
 object DNAEngine {
-  val NUM_GENES: Int = 10
+  val NUM_GENES: Int = 30
   val rand = new Random(System.currentTimeMillis())
   
   def createNextGeneration(players: ArrayBuffer[GeneticPlayer], numGames: Int): ArrayBuffer[GeneticPlayer] = {
@@ -34,7 +34,7 @@ object DNAEngine {
     var rnd = new Random(System.currentTimeMillis()).nextInt(Gene.size * DNAEngine.NUM_GENES)
     val offspring1DNA = player1.dna.genes.mkString.substring(0, rnd) + player2.dna.genes.mkString.substring(rnd)
     val offspring2DNA = player2.dna.genes.mkString.substring(0, rnd) + player1.dna.genes.mkString.substring(rnd)
-    (GeneticPlayer(player1.name + player2.name, offspring1DNA), GeneticPlayer(player2.name + player1.name, offspring2DNA))
+    (GeneticPlayer(player1.name, offspring1DNA), GeneticPlayer(player2.name, offspring2DNA))
   }
 }
 
