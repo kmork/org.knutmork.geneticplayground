@@ -41,12 +41,12 @@ object DNAEngine {
     var mutatedStringBuffer = ""
     playerDNA.foreach(c => {
       if (rand.nextInt(10000) + 1 <= DNAEngine.MUTATION_RATE) {
-        println("Mutated " + c)
         mutatedStringBuffer += Gene.newMutatedBase(c)
       } else {
         mutatedStringBuffer += c
       }
     })
+    println("Mutated DNA size: " + mutatedStringBuffer.size)
     mutatedStringBuffer.toString()
   }
 }

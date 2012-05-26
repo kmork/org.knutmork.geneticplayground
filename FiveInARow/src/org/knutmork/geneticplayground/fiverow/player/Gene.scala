@@ -25,11 +25,11 @@ object Gene {
     new Gene(s)
   }
   
-  // Returns randomly one of the other three types og a gene base
+  // Returns randomly one of the other three types of a gene base
   def newMutatedBase(c: Char): Char = {
     val rand = new Random(System.currentTimeMillis());
     var mc = c
-    while(mc.equals(c)) (mc = rand.nextInt(4).toChar)
+    while(mc.equals(c)) (mc = ("" + rand.nextInt(4)).head)
     mc
   }
   
