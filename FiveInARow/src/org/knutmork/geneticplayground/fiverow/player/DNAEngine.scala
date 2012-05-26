@@ -8,6 +8,7 @@ import org.knutmork.geneticplayground.fiverow.game.Marker
 
 object DNAEngine {
   val NUM_GENES: Int = 30
+  val MUTATION_RATE: Int = 25 // max = 10.000
   val rand = new Random(System.currentTimeMillis())
   
   def createNextGeneration(players: ArrayBuffer[GeneticPlayer], numGames: Int): ArrayBuffer[GeneticPlayer] = {
@@ -30,11 +31,23 @@ object DNAEngine {
   }
 
   private def mate(player1: GeneticPlayer, player2: GeneticPlayer): (GeneticPlayer, GeneticPlayer) = {
-    // TODO: Missing mutation
     var rnd = new Random(System.currentTimeMillis()).nextInt(Gene.size * DNAEngine.NUM_GENES)
     val offspring1DNA = player1.dna.genes.mkString.substring(0, rnd) + player2.dna.genes.mkString.substring(rnd)
     val offspring2DNA = player2.dna.genes.mkString.substring(0, rnd) + player1.dna.genes.mkString.substring(rnd)
-    (GeneticPlayer(player1.name, offspring1DNA), GeneticPlayer(player2.name, offspring2DNA))
+    (GeneticPlayer(player1.name, mutate(offspring1DNA)), GeneticPlayer(player2.name, mutate(offspring2DNA)))
+  }
+  
+  private def mutate(playerDNA: String): String = {
+    var mutatedStringBuffer = ""
+    playerDNA.foreach(c => {
+      if (rand.nextInt(10000) + 1 <= DNAEngine.MUTATION_RATE) {
+        println("Mutated " + c)
+        mutatedStringBuffer += Gene.newMutatedBase(c)
+      } else {
+        mutatedStringBuffer += c
+      }
+    })
+    mutatedStringBuffer.toString()
   }
 }
 

@@ -8,7 +8,6 @@ import org.knutmork.geneticplayground.fiverow.player.GeneticPlayer
 object ComputerTournament {
   val NUM_PLAYERS: Int = 30
   val NUM_GENERATIONS: Int = 30
-  val MUTATION_RATE: Int = 0
 
   def main(args: Array[String]): Unit = {
 

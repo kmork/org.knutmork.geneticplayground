@@ -25,6 +25,14 @@ object Gene {
     new Gene(s)
   }
   
+  // Returns randomly one of the other three types og a gene base
+  def newMutatedBase(c: Char): Char = {
+    val rand = new Random(System.currentTimeMillis());
+    var mc = c
+    while(mc.equals(c)) (mc = rand.nextInt(4).toChar)
+    mc
+  }
+  
   def size: Int = 80
 }
 
