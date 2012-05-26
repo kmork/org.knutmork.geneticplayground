@@ -46,7 +46,6 @@ object DNAEngine {
         mutatedStringBuffer += c
       }
     })
-    println("Mutated DNA size: " + mutatedStringBuffer.size)
     mutatedStringBuffer.toString()
   }
 }
