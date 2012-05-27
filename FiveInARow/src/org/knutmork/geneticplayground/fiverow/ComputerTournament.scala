@@ -1,21 +1,24 @@
 package org.knutmork.geneticplayground.fiverow
 import scala.collection.mutable.ArrayBuffer
-
+import RichFile.enrichFile
 import org.knutmork.geneticplayground.fiverow.game.Board
 import org.knutmork.geneticplayground.fiverow.player.DNAEngine
 import org.knutmork.geneticplayground.fiverow.player.GeneticPlayer
+import java.io.File
 
 object ComputerTournament {
   val NUM_PLAYERS: Int = 30
-  val NUM_GENERATIONS: Int = 30
+  val NUM_GENERATIONS: Int = 1000
 
   def main(args: Array[String]): Unit = {
+    new File("dnaString").mkdir();
+    var players = loadPlayers()
+    if (players.size == 0) {
+      println("Initiating " + NUM_PLAYERS + " new players...")
+      (0 until NUM_PLAYERS).foreach(i => players += GeneticPlayer("C" + i))
+    }
 
-    println("Initiating " + NUM_PLAYERS + " new players...")
-    var players = new ArrayBuffer[GeneticPlayer]
-    (0 until NUM_PLAYERS).foreach(i => players += GeneticPlayer("C" + i))
-
-    (0 until NUM_GENERATIONS).foreach(g => {
+    (currentGeneration() until NUM_GENERATIONS).foreach(g => {
       println("Playing games for " + g + ". generation players...")
       (0 until NUM_PLAYERS).foreach(i => {
         (0 until NUM_PLAYERS).foreach(j => new ComputerGame(players(i), players(j)))
@@ -26,7 +29,28 @@ object ComputerTournament {
       players.foreach(println)
     
       players = DNAEngine.createNextGeneration(players, NUM_PLAYERS*NUM_PLAYERS)
+      savePlayers(g, players)
     })
+  }
+  
+  def savePlayers(generationNum: Int, players: Seq[GeneticPlayer]) {
+    val f = new File("dnaString/generation" + generationNum +".txt")
+    var generationDNA = ""
+    players.foreach(p => {
+      generationDNA += p.dna.genes.mkString + "\n"
+    })
+    f.text = generationDNA
+  }
+  
+  def currentGeneration(): Int = new File("dnaString").listFiles().length
+  
+  def loadPlayers(): ArrayBuffer[GeneticPlayer] = {
+    val p = new ArrayBuffer[GeneticPlayer]
+    if (currentGeneration() > 0) {
+      val f = new File("dnaString/generation" + (currentGeneration() - 1) + ".txt")
+      f.text.split("\n").foreach( dna => p += GeneticPlayer("D", dna))
+    }
+    p
   }
 }
 

@@ -19,7 +19,6 @@ class GeneticPlayer(name: String, dnaString: String) extends Player {
 
   var marker = CellState.Y
   val dna: DNAEngine = new DNAEngine(dnaString)
-  dna.printGenes()
   var survivalCount = 0
 
   def name():String = name

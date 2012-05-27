@@ -8,7 +8,7 @@ import org.knutmork.geneticplayground.fiverow.game.Marker
 
 object DNAEngine {
   val NUM_GENES: Int = 30
-  val MUTATION_RATE: Int = 25 // max = 10.000
+  val MUTATION_RATE: Int = 10 // max = 10.000
   val rand = new Random(System.currentTimeMillis())
   
   def createNextGeneration(players: ArrayBuffer[GeneticPlayer], numGames: Int): ArrayBuffer[GeneticPlayer] = {
@@ -91,10 +91,5 @@ class DNAEngine(dnaString: String) {
       }
     }
     m
-  }
-
-  def printGenes() {
-    genes.foreach(gene => print(gene))
-    println("")
   }
 }
