@@ -76,6 +76,9 @@ class DNAEngine(dnaString: String) {
             case other => println("Error in Gene data - not recognizable digit: " + gene.base.substring(i, i + 1)); false
           }
         })
+        if (ok && g < genes.size - 1) {
+          player.addGenesInUse()
+        }
       })
       if (points < lowestCellPoint._1) { (points, cell) } else { lowestCellPoint }
     }._2

@@ -20,6 +20,7 @@ class GeneticPlayer(name: String, dnaString: String) extends Player {
   var marker = CellState.Y
   val dna: DNAEngine = new DNAEngine(dnaString)
   var survivalCount = 0
+  var usedGenes: Int = 0
 
   def name():String = name
   
@@ -35,8 +36,11 @@ class GeneticPlayer(name: String, dnaString: String) extends Player {
 
   def youWon(board: Board) {
     survivalCount += 1
-    //println("Player " + name + " won game")
+  }
+  
+  def addGenesInUse() {
+    usedGenes += 1
   }
 
-  override def toString = "GeneticPlayer: " + name + ", score: " + survivalCount
+  override def toString = "GeneticPlayer: " + name + ", score: " + survivalCount + ", genes in use: " + usedGenes
 }

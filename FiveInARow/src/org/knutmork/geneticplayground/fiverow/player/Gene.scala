@@ -8,8 +8,9 @@ object Gene {
   val ME: Int = 2
   val OPPONENT: Int = 3
   
+  val rand = new Random(System.currentTimeMillis());
+  
   def newRandomGene(): Gene = {
-    val rand = new Random(System.currentTimeMillis());
     var geneBase = ""
     (0 until Gene.size).foreach (i => {
       geneBase += rand.nextInt(4)
