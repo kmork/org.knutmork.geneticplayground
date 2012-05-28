@@ -7,13 +7,13 @@ class DummyPlayer() extends Player {
 
   val rand = new Random(System.currentTimeMillis());
 
-  def youWon(board: Board) {}
+  def youWon(board: Board) {println("DummyPlayer won!")}
   
   def yourTurn(board: Board) {
-    println("Computers turn")
+    //println("Computers turn")
     val possibleMoves = board.findLegalMoves()
     val chosenMove = possibleMoves(rand.nextInt(possibleMoves.size))
-    println("Computer chosen move: " + chosenMove.pos._1 + ", " + chosenMove.pos._2)
+    //println("Computer chosen move: " + chosenMove.pos._1 + ", " + chosenMove.pos._2)
     board.placeMarker(chosenMove.pos._1, chosenMove.pos._2)
   }
 }
