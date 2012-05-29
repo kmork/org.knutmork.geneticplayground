@@ -7,7 +7,7 @@ import org.knutmork.geneticplayground.fiverow.player.GeneticPlayer
 import java.io.File
 
 object ComputerGame {
-  val NUM_PLAYERS: Int = 30
+  val NUM_PLAYERS: Int = 100
   val NUM_GENERATIONS: Int = 1000
 
   def main(args: Array[String]): Unit = {

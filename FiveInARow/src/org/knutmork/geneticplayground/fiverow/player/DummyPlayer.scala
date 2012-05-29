@@ -10,10 +10,8 @@ class DummyPlayer() extends Player {
   def youWon(board: Board) {println("DummyPlayer won!")}
   
   def yourTurn(board: Board) {
-    //println("Computers turn")
     val possibleMoves = board.findLegalMoves()
     val chosenMove = possibleMoves(rand.nextInt(possibleMoves.size))
-    //println("Computer chosen move: " + chosenMove.pos._1 + ", " + chosenMove.pos._2)
     board.placeMarker(chosenMove.pos._1, chosenMove.pos._2)
   }
 }
