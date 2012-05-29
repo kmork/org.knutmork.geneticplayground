@@ -7,7 +7,7 @@ import org.knutmork.geneticplayground.fiverow.game.CellState
 import org.knutmork.geneticplayground.fiverow.game.Marker
 
 object DNAEngine {
-  val NUM_GENES: Int = 5
+  val NUM_GENES: Int = 30
   val MUTATION_RATE: Int = 20 // max = 10.000
   val rand = new Random(System.currentTimeMillis())
   

@@ -30,7 +30,6 @@ class GeneticPlayer(name: String, dnaString: String) extends Player {
   }
 
   def firstMove(board: Board) {
-    usedGenes = 0
     marker = CellState.X
     board.placeMarker(0, 0)
   }
@@ -38,6 +37,7 @@ class GeneticPlayer(name: String, dnaString: String) extends Player {
   override def youWon(board: Board) {
     if(usedGenes > 0) {
       fitness += 1
+      usedGenes = 0
     }
   }
   
