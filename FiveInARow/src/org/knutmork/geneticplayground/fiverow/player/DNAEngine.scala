@@ -68,7 +68,6 @@ class DNAEngine(dnaString: String) {
         val gene = genes(g)
         ok = true
         (0 until gene.base.size).toStream.takeWhile(_ => ok).foreach(i => {
-          println("Size of m(i): " + m.size)
           ok = Integer.parseInt(gene.base.substring(i, i + 1)) match {
             case Gene.UNKNOWN => true
             case Gene.NOT_SET => m(i).state.equals(CellState.NOT_SET)
