@@ -53,7 +53,7 @@ object DNAEngine {
 class DNAEngine(dnaString: String) {
   val genes: ArrayBuffer[Gene] = new ArrayBuffer()
   (0 until DNAEngine.NUM_GENES).foreach(i => {
-    if (dnaString == null) {genes += Gene.newRandomGene()}
+    if (dnaString == null) {genes += Gene.newInitialGene()}
     else {genes += Gene.newFromString(dnaString.substring(i*Gene.size, (i+1)*Gene.size))}
   })
   genes += Gene.newInitialGene() // At last keep a default gene which always makes a valid move
@@ -68,6 +68,7 @@ class DNAEngine(dnaString: String) {
         val gene = genes(g)
         ok = true
         (0 until gene.base.size).toStream.takeWhile(_ => ok).foreach(i => {
+          println("Size of m(i): " + m.size)
           ok = Integer.parseInt(gene.base.substring(i, i + 1)) match {
             case Gene.UNKNOWN => true
             case Gene.NOT_SET => m(i).state.equals(CellState.NOT_SET)
@@ -88,7 +89,7 @@ class DNAEngine(dnaString: String) {
     val m = new ArrayBuffer[Marker]
     for (x <- -4 to 4) {
       for (y <- -4 to 4) {
-        if (x != 0 && y != 0) { // Not include the pos that's about to be evaluated
+        if (!(x == 0 && y == 0)) { // Not include the pos that's about to be evaluated
           m += b.m(x + cell.pos._1, y + cell.pos._2)
         }
       }
