@@ -30,6 +30,7 @@ class GeneticPlayer(name: String, dnaString: String) extends Player {
   }
 
   def firstMove(board: Board) {
+    usedGenes = 0
     marker = CellState.X
     board.placeMarker(0, 0)
   }

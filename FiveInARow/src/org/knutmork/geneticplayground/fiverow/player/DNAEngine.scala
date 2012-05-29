@@ -21,7 +21,8 @@ object DNAEngine {
   }
 
   private def rouletteWheelSelection(players: ArrayBuffer[GeneticPlayer], numGames: Int): GeneticPlayer = {
-    var rnd = rand.nextInt(numGames) + 1// 1 point per game
+    val totalFitness = players.foldLeft(0)(_ + _.fitness)
+    var rnd = rand.nextInt(totalFitness) + 1
     var i = 0
     while (rnd > players(i).fitness) {
       rnd = rnd - players(i).fitness
