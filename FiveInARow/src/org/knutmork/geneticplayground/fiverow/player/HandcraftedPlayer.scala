@@ -11,8 +11,6 @@ class HandcraftedPlayer() extends Player {
 
   val rand = new Random(System.currentTimeMillis());
 
-  def youWon(board: Board) {}
-  
   def yourTurn(board: Board) {
     println("Computers turn")
     var chosenMove: Marker = null

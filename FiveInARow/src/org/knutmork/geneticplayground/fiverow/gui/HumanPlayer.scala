@@ -51,7 +51,7 @@ class HumanPlayer(board: Board) extends Player {
     table.update(board.lastMarker._1 + boardMatrixPos._1, board.lastMarker._2 + boardMatrixPos._2, board.lastMarker._3)
   }
 
-  def youWon(board: Board) {
+  override def youWon(board: Board) {
     label.text = "GAME OVER - Player" + board.nextPlayer.toString() + " won"
     board.winList.foreach { m =>
       table.update(m.pos._1 + boardMatrixPos._1, m.pos._2 + boardMatrixPos._2, " Z")

@@ -4,6 +4,8 @@ import scala.util.Random
 
 class Board {
   // dynamic size of matrix, starting with just one cell
+  val MAX_MOVES: Int = 250
+  
   private var firstRowIndex = 0
   private var lastRowIndex = 0
   private var firstColIndex = 0
@@ -17,6 +19,7 @@ class Board {
   var initialMove = true
   var lastMarker: (Int, Int, CellState.Value) = (-1, -1, CellState.Y)
   var winList = new ArrayBuffer[Marker]
+  var numMoves = 0
 
   def legalMove(x: Int, y: Int): Boolean = {
     if (x >= firstRowIndex && x <= lastRowIndex && y >= firstColIndex && y <= lastColIndex) {
@@ -39,7 +42,16 @@ class Board {
     if (!gameOver && legalMove(x, y)) {
       updateBoard(x, y)
       togglePlayer(x, y)
-      if (!gameOver) { players(currPlayer).yourTurn(this) } else { players(nextPlayer).youWon(this) }
+      numMoves += 1
+      if (numMoves >= MAX_MOVES) { // Don't want to play forever
+        players(nextPlayer).youLost(this)
+        players(currPlayer).youLost(this)
+      } else if (!gameOver) { 
+        players(currPlayer).yourTurn(this) 
+      } else { 
+        players(nextPlayer).youWon(this)
+        players(currPlayer).youLost(this)
+      }
       true
     } else {
       //println("Illegal marker" + currPlayer.toString() + " attempt at " + x + ", " + y)

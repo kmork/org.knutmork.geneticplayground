@@ -7,7 +7,7 @@ import org.knutmork.geneticplayground.fiverow.game.CellState
 import org.knutmork.geneticplayground.fiverow.game.Marker
 
 object DNAEngine {
-  val NUM_GENES: Int = 30
+  val NUM_GENES: Int = 5
   val MUTATION_RATE: Int = 20 // max = 10.000
   val rand = new Random(System.currentTimeMillis())
   
@@ -23,8 +23,8 @@ object DNAEngine {
   private def rouletteWheelSelection(players: ArrayBuffer[GeneticPlayer], numGames: Int): GeneticPlayer = {
     var rnd = rand.nextInt(numGames) + 1// 1 point per game
     var i = 0
-    while (rnd > players(i).survivalCount) {
-      rnd = rnd - players(i).survivalCount
+    while (rnd > players(i).fitness) {
+      rnd = rnd - players(i).fitness
       i += 1
     }
     players(i)

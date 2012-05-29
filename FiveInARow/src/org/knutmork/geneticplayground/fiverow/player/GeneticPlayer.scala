@@ -19,7 +19,7 @@ class GeneticPlayer(name: String, dnaString: String) extends Player {
 
   var marker = CellState.Y
   val dna: DNAEngine = new DNAEngine(dnaString)
-  var survivalCount = 0
+  var fitness = 0
   var usedGenes: Int = 0
 
   def name():String = name
@@ -34,13 +34,19 @@ class GeneticPlayer(name: String, dnaString: String) extends Player {
     board.placeMarker(0, 0)
   }
 
-  def youWon(board: Board) {
-    survivalCount += 1
+  override def youWon(board: Board) {
+    if(usedGenes > 0) {
+      fitness += 1
+    }
   }
   
+  override def youLost(board: Board) {
+    usedGenes = 0
+  }
+
   def addGenesInUse() {
     usedGenes += 1
   }
 
-  override def toString = "GeneticPlayer: " + name + ", score: " + survivalCount + ", genes in use: " + usedGenes
+  override def toString = "GeneticPlayer: " + name + ", score: " + fitness + ", genes in use: " + usedGenes
 }

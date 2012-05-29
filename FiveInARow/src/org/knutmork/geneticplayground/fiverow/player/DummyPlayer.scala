@@ -7,7 +7,7 @@ class DummyPlayer() extends Player {
 
   val rand = new Random(System.currentTimeMillis());
 
-  def youWon(board: Board) {println("DummyPlayer won!")}
+  override def youWon(board: Board) {println("DummyPlayer won!")}
   
   def yourTurn(board: Board) {
     val possibleMoves = board.findLegalMoves()
