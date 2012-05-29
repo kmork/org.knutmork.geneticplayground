@@ -38,7 +38,6 @@ class Board {
   def boardDimension: (Int, Int) = (lastRowIndex + firstRowIndex.abs + 1, lastColIndex + firstColIndex.abs + 1)
 
   def placeMarker(x: Int, y: Int): Boolean = {
-    //println("Try to place marker at " + x + ", " + y)
     if (!gameOver && legalMove(x, y)) {
       updateBoard(x, y)
       togglePlayer(x, y)
@@ -46,17 +45,14 @@ class Board {
       if (numMoves >= MAX_MOVES) { // Don't want to play forever
         players(nextPlayer).youLost(this)
         players(currPlayer).youLost(this)
-      } else if (!gameOver) { 
-        players(currPlayer).yourTurn(this) 
-      } else { 
+      } else if (gameOver) { 
         players(nextPlayer).youWon(this)
         players(currPlayer).youLost(this)
+      } else { 
+        players(currPlayer).yourTurn(this) 
       }
       true
-    } else {
-      //println("Illegal marker" + currPlayer.toString() + " attempt at " + x + ", " + y)
-      false
-    }
+    } else { false }
   }
 
   // Set next player as current
