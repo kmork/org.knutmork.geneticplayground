@@ -5,25 +5,23 @@ import org.knutmork.geneticplayground.fiverow.game.Board
 import org.knutmork.geneticplayground.fiverow.player.DNAEngine
 import org.knutmork.geneticplayground.fiverow.player.GeneticPlayer
 import java.io.File
+import org.knutmork.geneticplayground.fiverow.player.GeneticAlgorithm._
 
 object ComputerGame {
-  val NUM_PLAYERS: Int = 100
-  val NUM_GENERATIONS: Int = 1000
-
   def main(args: Array[String]): Unit = {
     var players = initPlayers()
 
     (currentGeneration() until NUM_GENERATIONS).foreach(g => {
       println("Playing games for " + g + ". generation players...")
-      (0 until NUM_PLAYERS).foreach(i => {
-        (0 until NUM_PLAYERS).foreach(j => playGame(players(i), players(j)))
+      (0 until NUM_INDIVIDUALS).foreach(i => {
+        (0 until NUM_INDIVIDUALS).foreach(j => playGame(players(i), players(j)))
         println("Round " + i + " finished")
       })
 
       println("Total score:")
       players.foreach(println)
 
-      players = DNAEngine.createNextGeneration(players, NUM_PLAYERS * NUM_PLAYERS)
+      players = DNAEngine.createNextGeneration(players, NUM_INDIVIDUALS * NUM_INDIVIDUALS)
       savePlayers(g, players)
     })
   }
@@ -31,8 +29,8 @@ object ComputerGame {
   def initPlayers(): ArrayBuffer[GeneticPlayer] = {
     var players = loadPlayers()
     if (players.size == 0) {
-      println("Initiating " + NUM_PLAYERS + " new players...")
-      (0 until NUM_PLAYERS).foreach(i => players += GeneticPlayer("C" + i))
+      println("Initiating " + NUM_INDIVIDUALS + " new players...")
+      (0 until NUM_INDIVIDUALS).foreach(i => players += GeneticPlayer("C" + i))
     }
     players
   }
