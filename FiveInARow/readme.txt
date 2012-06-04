@@ -13,6 +13,12 @@ Functionality:
 * Able to stop generations after a while, then pick it up again later
 on - since it takes very long time to produce good players
 
+Todo:
+* Must have a mechanism to verify the evolution for each generation or generation set
+* Black (or first player) will have a separate strategy from white, since it is proved to be a winner in a perfect game
+Maybe the individuals should be divided between black and white colonies ?
+* Must implement concurrency and possibility to calculate fitness on machines in cluster
+* Must implement transparency for symmetry (is it 8 variants ?)
 
 Genetic model:
 * Maximum matrix size which can be matched is 9*9
