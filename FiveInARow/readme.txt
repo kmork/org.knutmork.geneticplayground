@@ -1,5 +1,5 @@
 Title: 
-FiveInARow
+Gomoku
 
 Description:
 A game for testing out genetic algorithms using Scala

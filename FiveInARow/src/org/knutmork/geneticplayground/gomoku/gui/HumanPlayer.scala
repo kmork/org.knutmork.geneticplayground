@@ -1,4 +1,4 @@
-package org.knutmork.geneticplayground.fiverow.gui
+package org.knutmork.geneticplayground.gomoku.gui
 
 import scala.Array.ofDim
 import scala.swing.event.TableColumnsSelected
@@ -12,8 +12,8 @@ import scala.swing.Orientation
 import scala.swing.ScrollPane
 import scala.swing.Table
 
-import org.knutmork.geneticplayground.fiverow.game.Board
-import org.knutmork.geneticplayground.fiverow.game.Player
+import org.knutmork.geneticplayground.gomoku.game.Board
+import org.knutmork.geneticplayground.gomoku.game.Player
 
 import javax.swing.table.DefaultTableCellRenderer
 import javax.swing.JComponent

@@ -1,4 +1,4 @@
-package org.knutmork.geneticplayground.fiverow.game
+package org.knutmork.geneticplayground.gomoku.game
 
 class Marker (x : Int, y: Int){
 	var state = CellState.NOT_SET

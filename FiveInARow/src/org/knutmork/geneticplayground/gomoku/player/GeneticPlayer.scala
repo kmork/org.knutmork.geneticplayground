@@ -1,9 +1,9 @@
-package org.knutmork.geneticplayground.fiverow.player
-import org.knutmork.geneticplayground.fiverow.game.Board
-import org.knutmork.geneticplayground.fiverow.game.Player
+package org.knutmork.geneticplayground.gomoku.player
+import org.knutmork.geneticplayground.gomoku.game.Board
+import org.knutmork.geneticplayground.gomoku.game.Player
 import scala.util.Random
 import scala.collection.mutable.ArrayBuffer
-import org.knutmork.geneticplayground.fiverow.game.CellState
+import org.knutmork.geneticplayground.gomoku.game.CellState
 
 object GeneticPlayer {
   def apply(name: String): GeneticPlayer = {

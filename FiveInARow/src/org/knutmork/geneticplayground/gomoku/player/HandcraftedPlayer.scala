@@ -1,10 +1,10 @@
-package org.knutmork.geneticplayground.fiverow.player
-import org.knutmork.geneticplayground.fiverow.game.Board
-import org.knutmork.geneticplayground.fiverow.game.Player
+package org.knutmork.geneticplayground.gomoku.player
+import org.knutmork.geneticplayground.gomoku.game.Board
+import org.knutmork.geneticplayground.gomoku.game.Player
 import scala.util.Random
-import org.knutmork.geneticplayground.fiverow.game.Marker
+import org.knutmork.geneticplayground.gomoku.game.Marker
 import scala.collection.mutable.ArrayBuffer
-import org.knutmork.geneticplayground.fiverow.game.CellState
+import org.knutmork.geneticplayground.gomoku.game.CellState
 
 // Offensive player, don't care about defense
 class HandcraftedPlayer() extends Player {

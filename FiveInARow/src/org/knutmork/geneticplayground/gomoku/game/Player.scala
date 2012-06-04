@@ -1,4 +1,4 @@
-package org.knutmork.geneticplayground.fiverow.game
+package org.knutmork.geneticplayground.gomoku.game
 
 trait Player {
 	def yourTurn(board: Board)

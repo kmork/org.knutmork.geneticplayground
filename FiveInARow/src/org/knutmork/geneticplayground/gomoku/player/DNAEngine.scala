@@ -1,11 +1,11 @@
-package org.knutmork.geneticplayground.fiverow.player
+package org.knutmork.geneticplayground.gomoku.player
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
-import org.knutmork.geneticplayground.fiverow.player.GeneticAlgorithm._
-import org.knutmork.geneticplayground.fiverow.game.Board
-import org.knutmork.geneticplayground.fiverow.game.CellState
-import org.knutmork.geneticplayground.fiverow.game.Marker
+import org.knutmork.geneticplayground.gomoku.player.GeneticAlgorithm._
+import org.knutmork.geneticplayground.gomoku.game.Board
+import org.knutmork.geneticplayground.gomoku.game.CellState
+import org.knutmork.geneticplayground.gomoku.game.Marker
 
 object DNAEngine {
   val rand = new Random(System.currentTimeMillis())

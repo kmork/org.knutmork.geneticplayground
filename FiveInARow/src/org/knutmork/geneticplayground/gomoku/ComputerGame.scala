@@ -1,11 +1,11 @@
-package org.knutmork.geneticplayground.fiverow
+package org.knutmork.geneticplayground.gomoku
 import scala.collection.mutable.ArrayBuffer
 import RichFile.enrichFile
-import org.knutmork.geneticplayground.fiverow.game.Board
-import org.knutmork.geneticplayground.fiverow.player.DNAEngine
-import org.knutmork.geneticplayground.fiverow.player.GeneticPlayer
+import org.knutmork.geneticplayground.gomoku.game.Board
+import org.knutmork.geneticplayground.gomoku.player.DNAEngine
+import org.knutmork.geneticplayground.gomoku.player.GeneticPlayer
 import java.io.File
-import org.knutmork.geneticplayground.fiverow.player.GeneticAlgorithm._
+import org.knutmork.geneticplayground.gomoku.player.GeneticAlgorithm._
 
 object ComputerGame {
   def main(args: Array[String]): Unit = {

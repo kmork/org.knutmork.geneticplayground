@@ -1,4 +1,4 @@
-package org.knutmork.geneticplayground.fiverow.player
+package org.knutmork.geneticplayground.gomoku.player
 
 object GeneticAlgorithm {
   val NUM_INDIVIDUALS: Int = 100

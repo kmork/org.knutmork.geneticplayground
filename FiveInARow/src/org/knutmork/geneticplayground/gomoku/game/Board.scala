@@ -1,4 +1,4 @@
-package org.knutmork.geneticplayground.fiverow.game
+package org.knutmork.geneticplayground.gomoku.game
 import scala.collection.mutable._
 import scala.util.Random
 

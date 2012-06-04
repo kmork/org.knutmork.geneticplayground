@@ -1,7 +1,7 @@
-package org.knutmork.geneticplayground.fiverow
-import org.knutmork.geneticplayground.fiverow.game.Board
-import org.knutmork.geneticplayground.fiverow.gui.HumanPlayer
-import org.knutmork.geneticplayground.fiverow.player._
+package org.knutmork.geneticplayground.gomoku
+import org.knutmork.geneticplayground.gomoku.game.Board
+import org.knutmork.geneticplayground.gomoku.gui.HumanPlayer
+import org.knutmork.geneticplayground.gomoku.player._
 
 object ManualGame {
 

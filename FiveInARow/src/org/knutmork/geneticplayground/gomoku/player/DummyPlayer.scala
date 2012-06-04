@@ -1,6 +1,6 @@
-package org.knutmork.geneticplayground.fiverow.player
-import org.knutmork.geneticplayground.fiverow.game.Board
-import org.knutmork.geneticplayground.fiverow.game.Player
+package org.knutmork.geneticplayground.gomoku.player
+import org.knutmork.geneticplayground.gomoku.game.Board
+import org.knutmork.geneticplayground.gomoku.game.Player
 import scala.util.Random
 
 class DummyPlayer() extends Player {

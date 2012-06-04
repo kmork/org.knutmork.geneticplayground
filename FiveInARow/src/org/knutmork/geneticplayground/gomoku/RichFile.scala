@@ -1,4 +1,4 @@
-package org.knutmork.geneticplayground.fiverow
+package org.knutmork.geneticplayground.gomoku
 
 import java.io._
 import scala.io._

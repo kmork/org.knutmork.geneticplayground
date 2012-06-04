@@ -1,9 +1,9 @@
-package org.knutmork.geneticplayground.fiverow.gui
+package org.knutmork.geneticplayground.gomoku.gui
 import javax.swing.table.TableCellRenderer
 import javax.swing.JTable
 import scala.swing.BorderPanel
 import scala.swing.Label
-import org.knutmork.geneticplayground.fiverow.game.Board
+import org.knutmork.geneticplayground.gomoku.game.Board
 
 class WinningCellRenderer(board : Board) extends BorderPanel with TableCellRenderer {
   val label = new Label
