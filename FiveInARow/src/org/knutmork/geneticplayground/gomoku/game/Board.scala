@@ -1,9 +1,10 @@
 package org.knutmork.geneticplayground.gomoku.game
-import scala.collection.mutable._
+import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable.Map
 import scala.util.Random
 
 class Board {
-  val MaxMoves: Int = 250
+  private val MaxMoves: Int = 250
   
   private var firstRowIndex = 0
   private var lastRowIndex = 0
@@ -60,18 +61,17 @@ class Board {
   def currPlayer(): CellState.Value = if (CellState.X.equals(lastMarker._3)) CellState.Y else CellState.X
   def nextPlayer(): CellState.Value = lastMarker._3
 
-  //def matrix(x: Int, y: Int): Marker = {m(x, y)}
   def m(x: Int, y: Int): Marker = {
     if (x < firstRowIndex || x > lastRowIndex || y < firstColIndex || y > lastColIndex) {
       new Marker(x, y) // Doesn't yet exist, just return a new empty one
     } else {
-      //println("Mapped " + x + ", " + y + " to bigtable at index " + ((x + firstRowIndex.abs) * boardDimension._1 + (y + firstColIndex.abs)))
       data((x + firstRowIndex.abs) * boardDimension._2 + (y + firstColIndex.abs))
     }
   }
 
-  def gameOver(): Boolean = {
-    var gameOver = false
+  def gameOver(): Boolean = { winnerSeq().size > 0 }
+    
+  def winnerSeq(): Seq[Marker] = {
     val x = lastMarker._1
     val y = lastMarker._2
     val cs = lastMarker._3
@@ -82,23 +82,20 @@ class Board {
     subMatrix += (m(x - 4, y), m(x - 3, y), m(x - 2, y), m(x - 1, y), m(x, y), m(x + 1, y), m(x + 2, y), m(x + 3, y), m(x + 4, y))
 
     var count = 0
+    var winList = List[Marker]()
     for (i <- 0 until subMatrix.length) {
       if (cs.equals(subMatrix(i).state)) count += 1 else count = 0
       if (count == 5) {
-        gameOver = true
-        winList += (subMatrix(i - 4), subMatrix(i - 3), subMatrix(i - 2), subMatrix(i - 1), subMatrix(i))
+        winList = List(subMatrix(i - 4), subMatrix(i - 3), subMatrix(i - 2), subMatrix(i - 1), subMatrix(i))
       }
     }
-    gameOver
+    winList
   }
 
   private def updateBoard(x: Int, y: Int) {
-    //println("Set marker" + currPlayer.toString() + " at " + x + ", " + y)
     m(x, y).setState(currPlayer)
     reAdjustBoard(x, y)
     initialMove = false
-
-    //debugBigTable()
   }
 
   private def reAdjustBoard(x: Int, y: Int) {
@@ -134,26 +131,7 @@ class Board {
   }
 
   // Returns legal possible moves in a random sequence
-  def findLegalMoves(): scala.collection.Seq[Marker] = {
+  def findLegalMoves(): Seq[Marker] = {
     Random.shuffle(data.filter(marker => legalMove(marker.pos._1, marker.pos._2)).toSeq)
-  }
-
-  private def debugBigTable() {
-    for (i <- 0 to data.length - 1) {
-      print(data(i).state)
-      if ((i + 1) % (firstColIndex.abs + lastColIndex + 1) == 0) {
-        print("\n")
-      }
-    }
-    println("")
-    //    for (i <- 0 to data.length - 1) {
-    //      if ((data(i).pos._1) >= 0) {print(" ")}
-    //      print((data(i).pos._1) + ",")
-    //      if ((data(i).pos._2) >= 0) {print(" ")}
-    //      print((data(i).pos._2) + "  ")
-    //      if ((i + 1) % (firstColIndex.abs + lastColIndex + 1) == 0) {
-    //        print("\n")
-    //      }
-    //    }
   }
 }

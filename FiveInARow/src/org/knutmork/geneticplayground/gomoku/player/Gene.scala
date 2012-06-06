@@ -11,11 +11,7 @@ object Gene {
   val rand = new Random(System.currentTimeMillis());
   
   def newRandomGene(): Gene = {
-    var geneBase = ""
-    (0 until Gene.size).foreach (i => {
-      geneBase += rand.nextInt(4)
-    })
-    new Gene(geneBase)
+    new Gene( (for (i <- 0 until Gene.size) yield "" + rand.nextInt(4)).mkString)
   }
   
   def newInitialGene(): Gene = {
