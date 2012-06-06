@@ -3,8 +3,7 @@ import scala.collection.mutable._
 import scala.util.Random
 
 class Board {
-  // dynamic size of matrix, starting with just one cell
-  val MAX_MOVES: Int = 250
+  val MaxMoves: Int = 250
   
   private var firstRowIndex = 0
   private var lastRowIndex = 0
@@ -42,7 +41,7 @@ class Board {
       updateBoard(x, y)
       togglePlayer(x, y)
       numMoves += 1
-      if (numMoves >= MAX_MOVES) { // Don't want to play forever
+      if (numMoves >= MaxMoves) { // Don't want to play forever
         players(nextPlayer).youLost(this)
         players(currPlayer).youLost(this)
       } else if (gameOver) { 

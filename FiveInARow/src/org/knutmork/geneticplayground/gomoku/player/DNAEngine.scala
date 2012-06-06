@@ -31,7 +31,7 @@ object DNAEngine {
   }
 
   private def mate(player1: GeneticPlayer, player2: GeneticPlayer): (GeneticPlayer, GeneticPlayer) = {
-    var rnd = new Random(System.currentTimeMillis()).nextInt(Gene.size * NUM_GENES)
+    var rnd = new Random(System.currentTimeMillis()).nextInt(Gene.size * NumGenes)
     val offspring1DNA = player1.dna.genes.mkString.substring(0, rnd) + player2.dna.genes.mkString.substring(rnd)
     val offspring2DNA = player2.dna.genes.mkString.substring(0, rnd) + player1.dna.genes.mkString.substring(rnd)
     (GeneticPlayer(player1.name, mutate(offspring1DNA)), GeneticPlayer(player2.name, mutate(offspring2DNA)))
@@ -40,7 +40,7 @@ object DNAEngine {
   private def mutate(playerDNA: String): String = {
     var mutatedStringBuffer = ""
     playerDNA.foreach(c => {
-      if (rand.nextInt(10000) + 1 <= MUTATION_RATE) {
+      if (rand.nextInt(10000) + 1 <= MutationRate) {
         mutatedStringBuffer += Gene.newMutatedBase(c)
       } else {
         mutatedStringBuffer += c
@@ -52,7 +52,7 @@ object DNAEngine {
 
 class DNAEngine(dnaString: String) {
   val genes: ArrayBuffer[Gene] = new ArrayBuffer()
-  (0 until NUM_GENES).foreach(i => {
+  (0 until NumGenes).foreach(i => {
     if (dnaString == null) {genes += Gene.newInitialGene()}
     else {genes += Gene.newFromString(dnaString.substring(i*Gene.size, (i+1)*Gene.size))}
   })
@@ -69,10 +69,10 @@ class DNAEngine(dnaString: String) {
         ok = true
         (0 until gene.base.size).toStream.takeWhile(_ => ok).foreach(i => {
           ok = Integer.parseInt(gene.base.substring(i, i + 1)) match {
-            case Gene.UNKNOWN => true
-            case Gene.NOT_SET => m(i).state.equals(CellState.NOT_SET)
-            case Gene.ME => m(i).state.equals(player.marker)
-            case Gene.OPPONENT => (!m(i).state.equals(player.marker) && !m(i).state.equals(CellState.NOT_SET))
+            case Gene.Unknown => true
+            case Gene.NotSet => m(i).state.equals(CellState.NOT_SET)
+            case Gene.Me => m(i).state.equals(player.marker)
+            case Gene.Opponent => (!m(i).state.equals(player.marker) && !m(i).state.equals(CellState.NOT_SET))
             case other => println("Error in Gene data - not recognizable digit: " + gene.base.substring(i, i + 1)); false
           }
         })

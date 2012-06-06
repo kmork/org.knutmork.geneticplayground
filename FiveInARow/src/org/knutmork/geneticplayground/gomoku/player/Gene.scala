@@ -3,10 +3,10 @@ import scala.collection.immutable.StringOps
 import scala.util.Random
 
 object Gene {
-  val UNKNOWN: Int = 0
-  val NOT_SET: Int = 1
-  val ME: Int = 2
-  val OPPONENT: Int = 3
+  val Unknown: Int = 0
+  val NotSet: Int = 1
+  val Me: Int = 2
+  val Opponent: Int = 3
   
   val rand = new Random(System.currentTimeMillis());
   

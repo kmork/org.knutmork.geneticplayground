@@ -11,22 +11,22 @@ object ComputerGame {
   def main(args: Array[String]) {
     var players = initPlayers()
 
-    (currentGeneration() until NUM_GENERATIONS).foreach(g => {
+    (currentGeneration() until NumGenerations).foreach(g => {
       println("Playing games for " + g + ". generation players...")
-      (0 until NUM_INDIVIDUALS).foreach(i => {
-        (0 until NUM_INDIVIDUALS).foreach(j => playGame(players(i), players(j)))
+      (0 until NumIndividuals).foreach(i => {
+        (0 until NumIndividuals).foreach(j => playGame(players(i), players(j)))
         println("Round " + i + " finished")
       })
       savePlayers(g, players)
-      players = DNAEngine.createNextGeneration(players, NUM_INDIVIDUALS * NUM_INDIVIDUALS)
+      players = DNAEngine.createNextGeneration(players, NumIndividuals * NumIndividuals)
     })
   }
 
   def initPlayers(): ArrayBuffer[GeneticPlayer] = {
     var players = loadPlayers()
     if (players.size == 0) {
-      println("Initiating " + NUM_INDIVIDUALS + " new players...")
-      (0 until NUM_INDIVIDUALS).foreach(i => players += GeneticPlayer("C" + i))
+      println("Initiating " + NumIndividuals + " new players...")
+      (0 until NumIndividuals).foreach(i => players += GeneticPlayer("C" + i))
     }
     players
   }
