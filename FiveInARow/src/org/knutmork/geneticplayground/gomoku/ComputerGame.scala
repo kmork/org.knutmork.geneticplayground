@@ -8,7 +8,7 @@ import java.io.File
 import org.knutmork.geneticplayground.gomoku.player.GeneticAlgorithm._
 
 object ComputerGame {
-  def main(args: Array[String]): Unit = {
+  def main(args: Array[String]) {
     var players = initPlayers()
 
     (currentGeneration() until NUM_GENERATIONS).foreach(g => {
@@ -20,9 +20,9 @@ object ComputerGame {
 
       println("Total score:")
       players.foreach(println)
+      savePlayers(g, players)
 
       players = DNAEngine.createNextGeneration(players, NUM_INDIVIDUALS * NUM_INDIVIDUALS)
-      savePlayers(g, players)
     })
   }
 
@@ -38,9 +38,7 @@ object ComputerGame {
   def savePlayers(generationNum: Int, players: Seq[GeneticPlayer]) {
     val f = new File("dnaString/generation" + generationNum + ".txt")
     var generationDNA = ""
-    players.foreach(p => {
-      generationDNA += p.dna.genes.mkString + "\n"
-    })
+    players.foreach(generationDNA += _.dna.genes.mkString + "\n")
     f.text = generationDNA
   }
 
