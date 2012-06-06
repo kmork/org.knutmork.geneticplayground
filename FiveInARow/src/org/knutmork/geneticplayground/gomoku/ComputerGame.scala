@@ -17,11 +17,7 @@ object ComputerGame {
         (0 until NUM_INDIVIDUALS).foreach(j => playGame(players(i), players(j)))
         println("Round " + i + " finished")
       })
-
-      println("Total score:")
-      players.foreach(println)
       savePlayers(g, players)
-
       players = DNAEngine.createNextGeneration(players, NUM_INDIVIDUALS * NUM_INDIVIDUALS)
     })
   }
@@ -38,7 +34,7 @@ object ComputerGame {
   def savePlayers(generationNum: Int, players: Seq[GeneticPlayer]) {
     val f = new File("dnaString/generation" + generationNum + ".txt")
     var generationDNA = ""
-    players.foreach(generationDNA += _.dna.genes.mkString + "\n")
+    players.foreach(generationDNA += _ + "\n")
     f.text = generationDNA
   }
 
@@ -51,7 +47,7 @@ object ComputerGame {
     val p = new ArrayBuffer[GeneticPlayer]
     if (currentGeneration() > 0) {
       val f = new File("dnaString/generation" + (currentGeneration() - 1) + ".txt")
-      f.text.split("\n").foreach(dna => p += GeneticPlayer("D", dna))
+      f.text.split("\n").foreach(dna => p += GeneticPlayer("D", dna.split(",")(1)))
     }
     p
   }

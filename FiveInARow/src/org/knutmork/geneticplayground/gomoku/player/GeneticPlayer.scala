@@ -49,5 +49,5 @@ class GeneticPlayer(name: String, dnaString: String) extends Player {
     usedGenes += 1
   }
 
-  override def toString = "GeneticPlayer: " + name + ", score: " + fitness
+  override def toString = fitness + "," + dna.genes.mkString
 }
