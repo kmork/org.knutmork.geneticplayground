@@ -15,14 +15,12 @@ object GeneticPlayer {
   }
 }
 
-class GeneticPlayer(name: String, dnaString: String) extends Player {
+class GeneticPlayer(val name: String, dnaString: String) extends Player {
 
   var marker = CellState.Y
   val dna: DNAEngine = new DNAEngine(dnaString)
   var fitness = 0
   var usedGenes: Int = 0
-
-  def name():String = name
   
   def yourTurn(board: Board) {
     val chosenMove = dna.process(this, board.findLegalMoves(), board)
