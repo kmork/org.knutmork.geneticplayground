@@ -11,19 +11,17 @@ class Board {
   private var firstColIndex = 0
   private var lastColIndex = 0
 
-  private val data = new ArrayBuffer[Marker]
-
-  data += new Marker(0, 0)
+  private val data = ArrayBuffer[Marker](new Marker(0,0))
   private val players = Map.empty[CellState.Value, Player]
 
   var initialMove = true
-  var lastMarker: (Int, Int, CellState.Value) = (-1, -1, CellState.Y)
+  var lastMarker = new Marker(-1, -1, CellState.Y)
   var winList = new ArrayBuffer[Marker]
   var numMoves = 0
 
   def legalMove(x: Int, y: Int): Boolean = {
     if (x >= firstRowIndex && x <= lastRowIndex && y >= firstColIndex && y <= lastColIndex) {
-      if (m(x, y).empty()) {
+      if (m(x, y).empty) {
         return initialMove || !m(x - 1, y - 1).empty || !m(x - 1, y).empty || !m(x - 1, y + 1).empty || !m(x, y - 1).empty || !m(x, y + 1).empty || !m(x + 1, y - 1).empty || !m(x + 1, y).empty || !m(x + 1, y + 1).empty
       }
     }
@@ -56,10 +54,10 @@ class Board {
   }
 
   // Set next player as current
-  private def togglePlayer(x: Int, y: Int) { lastMarker = (x, y, currPlayer) }
+  private def togglePlayer(x: Int, y: Int) { lastMarker = new Marker(x, y, currPlayer) }
 
-  def currPlayer(): CellState.Value = if (CellState.X.equals(lastMarker._3)) CellState.Y else CellState.X
-  def nextPlayer(): CellState.Value = lastMarker._3
+  def currPlayer(): CellState.Value = if (CellState.X.equals(lastMarker.state)) CellState.Y else CellState.X
+  def nextPlayer(): CellState.Value = lastMarker.state
 
   def m(x: Int, y: Int): Marker = {
     if (x < firstRowIndex || x > lastRowIndex || y < firstColIndex || y > lastColIndex) {
@@ -72,9 +70,8 @@ class Board {
   def gameOver(): Boolean = { winnerSeq().size > 0 }
     
   def winnerSeq(): Seq[Marker] = {
-    val x = lastMarker._1
-    val y = lastMarker._2
-    val cs = lastMarker._3
+    val x = lastMarker.x
+    val y = lastMarker.y
     val subMatrix = ArrayBuffer.empty[Marker]
     subMatrix += (m(x - 4, y - 4), m(x - 3, y - 3), m(x - 2, y - 2), m(x - 1, y - 1), m(x, y), m(x + 1, y + 1), m(x + 2, y + 2), m(x + 3, y + 3), m(x + 4, y + 4), new Marker(-1, -1))
     subMatrix += (m(x + 4, y - 4), m(x + 3, y - 3), m(x + 2, y - 2), m(x + 1, y - 1), m(x, y), m(x - 1, y + 1), m(x - 2, y + 2), m(x - 3, y + 3), m(x - 4, y + 4), new Marker(-1, -1))
@@ -84,7 +81,7 @@ class Board {
     var count = 0
     var winList = List[Marker]()
     for (i <- 0 until subMatrix.length) {
-      if (cs.equals(subMatrix(i).state)) count += 1 else count = 0
+      if (lastMarker.state.equals(subMatrix(i).state)) count += 1 else count = 0
       if (count == 5) {
         winList = List(subMatrix(i - 4), subMatrix(i - 3), subMatrix(i - 2), subMatrix(i - 1), subMatrix(i))
       }
@@ -93,7 +90,7 @@ class Board {
   }
 
   private def updateBoard(x: Int, y: Int) {
-    m(x, y).setState(currPlayer)
+    data((x + firstRowIndex.abs) * boardDimension._2 + (y + firstColIndex.abs)) = new Marker(x, y, currPlayer)
     reAdjustBoard(x, y)
     initialMove = false
   }

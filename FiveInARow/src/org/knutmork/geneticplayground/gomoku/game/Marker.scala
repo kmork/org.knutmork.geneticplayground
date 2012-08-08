@@ -1,17 +1,7 @@
 package org.knutmork.geneticplayground.gomoku.game
 
-class Marker (x : Int, y: Int){
-	var state = CellState.NOT_SET
-
-	def setState(newState: CellState.Value){
-	  if(state == CellState.NOT_SET) {
-	    state = newState
-	  }
-	}
-	
-	def empty() : Boolean = {
-	  CellState.NOT_SET.equals(state)
-	}
-	
-	def pos : (Int, Int) = (x,y)
+case class Marker (x : Int, y: Int, state: CellState.Value){
+	def this(x: Int, y: Int) = this(x, y, CellState.NOT_SET)
+	def empty = CellState.NOT_SET == state	
+	def pos = (x,y)
 }

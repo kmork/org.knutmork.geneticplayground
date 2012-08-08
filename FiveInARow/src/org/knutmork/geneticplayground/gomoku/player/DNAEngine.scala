@@ -70,9 +70,9 @@ class DNAEngine(dnaString: String) {
         (0 until gene.base.size).toStream.takeWhile(_ => ok).foreach(i => {
           ok = Integer.parseInt(gene.base.substring(i, i + 1)) match {
             case Gene.Unknown => true
-            case Gene.NotSet => m(i).state.equals(CellState.NOT_SET)
+            case Gene.NotSet => m(i).empty
             case Gene.Me => m(i).state.equals(player.marker)
-            case Gene.Opponent => (!m(i).state.equals(player.marker) && !m(i).state.equals(CellState.NOT_SET))
+            case Gene.Opponent => (!m(i).state.equals(player.marker) && !m(i).empty)
             case other => println("Error in Gene data - not recognizable digit: " + gene.base.substring(i, i + 1)); false
           }
         })
@@ -84,15 +84,8 @@ class DNAEngine(dnaString: String) {
     }._2
   }
 
-  private def mapBoardToArray(cell: Marker, b: Board): ArrayBuffer[Marker] = {
-    val m = new ArrayBuffer[Marker]
-    for (x <- -4 to 4) {
-      for (y <- -4 to 4) {
-        if (!(x == 0 && y == 0)) { // Not include the pos that's about to be evaluated
-          m += b.m(x + cell.pos._1, y + cell.pos._2)
-        }
-      }
-    }
-    m
+  private def mapBoardToArray(cell: Marker, b: Board): Seq[Marker] = {
+     for (x <- -4 to 4; y <- -4 to 4; if(!(x == 0 && y == 0))) 
+       yield b.m(x + cell.pos._1, y + cell.pos._2)
   }
 }

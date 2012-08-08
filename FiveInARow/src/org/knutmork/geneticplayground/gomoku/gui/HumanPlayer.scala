@@ -48,7 +48,7 @@ class HumanPlayer(board: Board) extends Player {
   }
 
   def yourTurn(board: Board) {
-    table.update(board.lastMarker._1 + boardMatrixPos._1, board.lastMarker._2 + boardMatrixPos._2, board.lastMarker._3)
+    table.update(board.lastMarker.x + boardMatrixPos._1, board.lastMarker.y + boardMatrixPos._2, board.lastMarker.state)
   }
 
   override def youWon(board: Board) {

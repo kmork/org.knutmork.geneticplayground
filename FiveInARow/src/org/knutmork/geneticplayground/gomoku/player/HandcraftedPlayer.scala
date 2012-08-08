@@ -39,8 +39,7 @@ class HandcraftedPlayer() extends Player {
     var found = false
     val x = marker.pos._1
     val y = marker.pos._2
-    val me = new Marker(x, y)
-    me.state = CellState.Y // Hard coded for now
+    val me = new Marker(x, y, CellState.Y)
     val subMatrix = ArrayBuffer.empty[Marker]
     subMatrix += (board.m(x - 4, y - 4), board.m(x - 3, y - 3), board.m(x - 2, y - 2), board.m(x - 1, y - 1), me, board.m(x + 1, y + 1), board.m(x + 2, y + 2), board.m(x + 3, y + 3), board.m(x + 4, y + 4), new Marker(-1, -1))
     subMatrix += (board.m(x + 4, y - 4), board.m(x + 3, y - 3), board.m(x + 2, y - 2), board.m(x + 1, y - 1), me, board.m(x - 1, y + 1), board.m(x - 2, y + 2), board.m(x - 3, y + 3), board.m(x - 4, y + 4), new Marker(-1, -1))

@@ -11,7 +11,7 @@ object Gene {
   val rand = new Random(System.currentTimeMillis());
   
   def newRandomGene(): Gene = {
-    new Gene( (for (i <- 0 until Gene.size) yield "" + rand.nextInt(4)).mkString)
+    new Gene( (for (i <- 0 until Gene.size) yield rand.nextInt(4)).mkString)
   }
   
   def newInitialGene(): Gene = {
@@ -33,6 +33,6 @@ object Gene {
   def size: Int = 80
 }
 
-class Gene private (val base: StringOps) {
+class Gene private (val base: String) {
   override def toString = base
 }

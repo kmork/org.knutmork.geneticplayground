@@ -11,7 +11,7 @@ class DummyPlayer() extends Player {
   
   def yourTurn(board: Board) {
     val possibleMoves = board.findLegalMoves()
-    val chosenMove = possibleMoves(rand.nextInt(possibleMoves.size))
-    board.placeMarker(chosenMove.pos._1, chosenMove.pos._2)
+    val (chosenMovePos1, chosenMovePos2) = possibleMoves(rand.nextInt(possibleMoves.size)).pos
+    board.placeMarker(chosenMovePos1, chosenMovePos2)
   }
 }
